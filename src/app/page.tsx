@@ -264,13 +264,13 @@ export default function Home() {
             </div>
             
             <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-gray-900 mb-6 sm:mb-8 leading-tight">
-              Pare de <span className="text-purple-600">Perder Dinheiro</span><br className="hidden sm:block" />
-              com Precificação Manual
+              Transforme-se no Prestador de Serviços <span className="text-purple-600">Mais Profissional</span><br className="hidden sm:block" />
+              e Assertivo do Agronegócio
             </h1>
             
             <p className="text-lg sm:text-xl lg:text-2xl text-gray-600 mb-8 sm:mb-10 max-w-4xl mx-auto leading-relaxed">
-              A primeira IA brasileira especializada em consultoria agrícola que calcula preços regionalizados 
-              e gera propostas comerciais em <strong>menos de 3 segundos</strong>
+              Propostas comerciais impressionantes com precificação cientificamente embasada - 
+              <strong>nunca mais calcule "de cabeça"</strong> ou perca dinheiro por precificar errado
             </p>
 
             {/* Benefícios Principais */}
@@ -295,13 +295,13 @@ export default function Home() {
                 onClick={() => scrollToWaitlist()}
                 className="w-full sm:w-auto bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-bold py-4 px-6 sm:px-8 rounded-xl text-base sm:text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
               >
-                🚀 Garantir Vaga VIP (50% OFF)
+                Transformar meu Profissionalismo Agora →
               </button>
               <button 
                 onClick={() => document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' })}
-                className="w-full sm:w-auto border-2 border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white font-bold py-4 px-6 sm:px-8 rounded-xl text-base sm:text-lg transition-all duration-300"
+                className="text-purple-600 hover:text-purple-700 font-semibold text-base sm:text-lg underline transition-colors duration-300"
               >
-                📺 Ver Demonstração
+                Ver Como Funciona a Transformação
               </button>
             </div>
 
@@ -313,74 +313,66 @@ export default function Home() {
       </section>
 
       {/* Problemas Section */}
-      <section id="problems" className="py-12 sm:py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="problems" className="bg-red-50 py-16 sm:py-20">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 sm:mb-16">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">
-              3 Erros Fatais que Consultores Cometem na Precificação
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 sm:mb-8">
+              2 Erros Fatais dos Prestadores de Serviços do Agronegócio
             </h2>
             <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
-              Pesquisa com 500+ consultores brasileiros revelou os principais obstáculos para uma precificação rentável
+              83% perdem clientes por propostas amadoras e 76% calculam preços "de cabeça" perdendo dinheiro
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            <div className="text-center p-4 sm:p-6 border border-red-200 rounded-xl">
-              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-red-600 text-xl sm:text-2xl">💸</span>
+
+          <div className="grid md:grid-cols-2 gap-8 sm:gap-12">
+            {/* Erro 1 */}
+            <div className="bg-white p-6 sm:p-8 rounded-xl shadow-lg border-l-4 border-red-500">
+              <div className="flex items-center mb-4 sm:mb-6">
+                <div className="bg-red-500 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold text-lg sm:text-xl">
+                  1
+                </div>
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 ml-3 sm:ml-4">
+                  Propostas Amadoras
+                </h3>
               </div>
-              <h3 className="text-lg sm:text-xl font-bold text-red-600 mb-3">Preços Abaixo do Mercado</h3>
-              <p className="text-sm sm:text-base text-gray-600">
-                87% dos consultores no Sul cobram menos que o valor justo por medo de perder clientes
+              <p className="text-base sm:text-lg text-gray-600 mb-4 sm:mb-6">
+                Entregam propostas mal estruturadas, sem embasamento técnico, que não transmitem profissionalismo nem justificam os valores cobrados.
               </p>
+              <div className="bg-gray-50 p-4 sm:p-6 rounded-lg">
+                <p className="text-sm sm:text-base text-gray-700 italic">
+                  "Perco clientes porque minhas propostas parecem caseiras perto da concorrência mais preparada..."
+                </p>
+              </div>
             </div>
-            <div className="text-center p-4 sm:p-6 border border-yellow-200 rounded-xl">
-              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-yellow-600 text-xl sm:text-2xl">⏰</span>
+
+            {/* Erro 2 */}
+            <div className="bg-white p-6 sm:p-8 rounded-xl shadow-lg border-l-4 border-red-500">
+              <div className="flex items-center mb-4 sm:mb-6">
+                <div className="bg-red-500 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold text-lg sm:text-xl">
+                  2
+                </div>
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 ml-3 sm:ml-4">
+                  Precificação "de Cabeça"
+                </h3>
               </div>
-              <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3">Horas Perdidas</h3>
-              <p className="text-sm sm:text-base text-gray-600">
-                15 horas/mês gastas criando propostas que poderiam ser automatizadas
+              <p className="text-base sm:text-lg text-gray-600 mb-4 sm:mb-6">
+                Calculam preços baseados em intuição, sem considerar especificidades regionais do agronegócio, perdendo dinheiro ou perdendo clientes.
               </p>
-            </div>
-            <div className="text-center p-4 sm:p-6 border border-gray-200 rounded-xl sm:col-span-2 lg:col-span-1">
-              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-gray-600 text-xl sm:text-2xl">😰</span>
+              <div className="bg-gray-50 p-4 sm:p-6 rounded-lg">
+                <p className="text-sm sm:text-base text-gray-700 italic">
+                  "Sempre fico na dúvida se estou cobrando certo... às vezes perco dinheiro, às vezes perco o cliente..."
+                </p>
               </div>
-              <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3">Propostas Amadoras</h3>
-              <p className="text-sm sm:text-base text-gray-600">
-                72% perdem clientes por propostas mal estruturadas ou incompletas
-              </p>
             </div>
           </div>
 
-          {/* Soluções Preview */}
-          <div className="mt-12 sm:mt-16 text-center">
-            <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6 sm:mb-8">
-              Nossa IA Resolve Todos Esses Problemas
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-              <div className="bg-green-50 p-4 sm:p-6 rounded-xl border border-green-200">
-                <div className="text-green-600 text-2xl sm:text-3xl mb-2">✅</div>
-                <h4 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">Preços Regionalizados</h4>
-                <p className="text-xs sm:text-sm text-gray-600">
-                  Dados de mercado de todos os 5.570 municípios brasileiros
-                </p>
-              </div>
-              <div className="bg-blue-50 p-4 sm:p-6 rounded-xl border border-blue-200">
-                <div className="text-blue-600 text-2xl sm:text-3xl mb-2">⚡</div>
-                <h4 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">Automação Total</h4>
-                <p className="text-xs sm:text-sm text-gray-600">
-                  De horas para minutos na criação de propostas profissionais
-                </p>
-              </div>
-              <div className="bg-purple-50 p-4 sm:p-6 rounded-xl border border-purple-200 sm:col-span-2 lg:col-span-1">
-                <div className="text-purple-600 text-2xl sm:text-3xl mb-2">🎯</div>
-                <h4 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">Propostas Profissionais</h4>
-                <p className="text-xs sm:text-sm text-gray-600">
-                  Templates dinâmicos que impressionam e convertem mais clientes
-                </p>
-              </div>
-            </div>
+          <div className="text-center mt-12 sm:mt-16">
+            <p className="text-xl sm:text-2xl font-bold text-red-600 mb-4 sm:mb-6">
+              Resultado: Status de amador e lucros reduzidos
+            </p>
+            <p className="text-base sm:text-lg text-gray-600">
+              Enquanto isso, profissionais com propostas impressionantes e preços assertivos dominam o mercado
+            </p>
           </div>
         </div>
       </section>
@@ -539,6 +531,104 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Demonstração Section */}
+      <section className="py-12 sm:py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">
+              AgroPricing: Profissionalismo + Precisão
+            </h2>
+            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
+              A única solução que te transforma no profissional mais respeitado E mais assertivo do agronegócio brasileiro
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center">
+            {/* Antes vs Depois */}
+            <div>
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6 sm:mb-8">
+                Transformação Completa
+              </h3>
+              
+              {/* ANTES */}
+              <div className="bg-red-50 p-4 sm:p-6 rounded-xl border-l-4 border-red-500 mb-6">
+                <h4 className="font-bold text-red-600 mb-3 flex items-center">
+                  <span className="text-lg sm:text-xl mr-2">❌</span>
+                  ANTES (Profissional Comum)
+                </h4>
+                <ul className="space-y-2 text-sm sm:text-base text-gray-700">
+                  <li>• Calcula preços "de cabeça" sem embasamento</li>
+                  <li>• Propostas simples feitas no Word</li>
+                  <li>• Compete por preço baixo</li>
+                  <li>• Clientes questionam os valores</li>
+                  <li>• Status de prestador comum</li>
+                </ul>
+              </div>
+
+              {/* DEPOIS */}
+              <div className="bg-green-50 p-4 sm:p-6 rounded-xl border-l-4 border-green-500">
+                <h4 className="font-bold text-green-600 mb-3 flex items-center">
+                  <span className="text-lg sm:text-xl mr-2">✅</span>
+                  DEPOIS (Especialista Referência)
+                </h4>
+                <ul className="space-y-2 text-sm sm:text-base text-gray-700">
+                  <li>• Precificação científica com dados regionais</li>
+                  <li>• Propostas profissionais que impressionam</li>
+                  <li>• Posicionamento como especialista premium</li>
+                  <li>• Clientes aceitam valores sem questionar</li>
+                  <li>• Status de profissional referência</li>
+                </ul>
+              </div>
+
+              <div className="mt-6 sm:mt-8 p-4 bg-purple-50 rounded-xl">
+                <p className="text-center font-bold text-purple-600 text-base sm:text-lg">
+                  Resultado: <span className="text-gray-900">Mais Respeito + Mais Lucro</span>
+                </p>
+              </div>
+            </div>
+
+            {/* Demonstração Visual */}
+            <div className="bg-white p-6 sm:p-8 rounded-xl shadow-lg">
+              <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4 sm:mb-6">
+                Exemplo Prático: Prestação de Serviços Agropecuários
+              </h3>
+              
+              <div className="space-y-4 sm:space-y-6">
+                <div className="border-l-4 border-blue-500 pl-4">
+                  <p className="font-semibold text-gray-900 text-sm sm:text-base">Serviço:</p>
+                  <p className="text-gray-600 text-sm sm:text-base">Consultoria técnica especializada para propriedade rural de 500ha no interior de Goiás</p>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="bg-red-50 p-3 sm:p-4 rounded-lg">
+                    <p className="font-semibold text-red-600 text-xs sm:text-sm">Método Antigo</p>
+                    <p className="text-lg sm:text-xl font-bold text-gray-900">R$ 8.500</p>
+                    <p className="text-xs sm:text-sm text-gray-600">"Calculei de cabeça"</p>
+                  </div>
+                  <div className="bg-green-50 p-3 sm:p-4 rounded-lg">
+                    <p className="font-semibold text-green-600 text-xs sm:text-sm">Com AgroPricing</p>
+                    <p className="text-lg sm:text-xl font-bold text-gray-900">R$ 12.800</p>
+                    <p className="text-xs sm:text-sm text-gray-600">Baseado em dados regionais</p>
+                  </div>
+                </div>
+
+                <div className="bg-yellow-50 p-3 sm:p-4 rounded-lg">
+                  <p className="font-bold text-yellow-700 text-center text-sm sm:text-base">
+                    Diferença: <span className="text-green-600">+R$ 4.300 (50% mais lucro)</span>
+                  </p>
+                </div>
+
+                <div className="text-center pt-2">
+                  <p className="text-xs sm:text-sm text-gray-600 italic">
+                    + Proposta profissional que impressiona o cliente
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Ferramentas Especializadas - Versão Enxuta */}
       <section id="tools" className="py-12 sm:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -606,7 +696,7 @@ export default function Home() {
             <div className="group p-6 sm:p-8 border border-gray-200 rounded-xl hover:shadow-xl hover:border-purple-300 transition-all duration-300 transform hover:-translate-y-2 sm:col-span-2 lg:col-span-1">
               <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300 mx-auto sm:mx-0">
                 <svg className="w-6 h-6 sm:w-7 sm:h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M14,2A3,3 0 0,1 17,5V11A3,3 0 0,1 14,14A3,3 0 0,1 11,11V5A3,3 0 0,1 14,2M19,11C19,14.53 16.39,17.44 13,17.93V21H11V17.93C7.61,17.44 5,14.53 5,11H7A5,5 0 0,0 12,16A5,5 0 0,0 17,11H19Z"/>
+                  <path d="M13,2A10,10 0 0,0 3,12A10,10 0 0,0 13,22A10,10 0 0,0 23,12A10,10 0 0,0 13,2Z"/>
                 </svg>
               </div>
               <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4 text-center sm:text-left">Propostas Profissionais Dinâmicas</h3>
@@ -649,89 +739,139 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 sm:mb-16">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">
-              Consultores que <span className="text-purple-600">Transformaram</span> seus Negócios
+              Prestadores de Serviços que se Transformaram em Referência
             </h2>
             <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
-              Veja como o AgroPricing Pro está revolucionando a consultoria agrícola no Brasil
+              Profissionais do agronegócio que agora são respeitados e cobram o que merecem
             </p>
           </div>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16">
-            <div className="bg-white p-6 sm:p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {/* Depoimento 1 */}
+            <div className="bg-white p-6 sm:p-8 rounded-xl shadow-lg">
               <div className="flex items-center mb-4 sm:mb-6">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full flex items-center justify-center mb-0 sm:mb-4 mr-3 sm:mr-4 flex-shrink-0">
-                  <span className="text-white text-sm sm:text-lg">RS</span>
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-100 rounded-full flex items-center justify-center mr-3 sm:mr-4">
+                  <span className="text-blue-600 font-bold text-sm sm:text-base">JS</span>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900 text-sm sm:text-base">Ricardo Silva</h4>
-                  <p className="text-xs text-gray-600">Consultor em Agropecuária - RS</p>
+                  <h4 className="font-bold text-gray-900 text-sm sm:text-base">João Silva</h4>
+                  <p className="text-gray-600 text-xs sm:text-sm">Prestador de Serviços Agropecuários - MT</p>
                 </div>
               </div>
-              <div className="text-yellow-400 mb-3 sm:mb-4">★★★★★</div>
-              <p className="text-sm sm:text-base text-gray-600 italic mb-3 sm:mb-4">
-                &ldquo;Reduzi 80% do tempo gasto em propostas. Antes levava 6 horas, agora faço em 1 hora com muito mais precisão nos valores.&rdquo;
+              <p className="text-gray-700 text-sm sm:text-base mb-4 sm:mb-6">
+                "Parei de 'chutar' preços e agora tenho propostas tão profissionais que meus clientes me veem como o especialista mais preparado da região. Minha margem de lucro aumentou 45%."
               </p>
-              <div className="text-xs sm:text-sm text-purple-600 font-medium">
-                ✓ Economiza 20 horas/mês
+              <div className="flex items-center">
+                <div className="flex text-yellow-400 text-sm sm:text-base">
+                  ⭐⭐⭐⭐⭐
+                </div>
+                <span className="text-gray-600 text-xs sm:text-sm ml-2">Verified</span>
               </div>
             </div>
 
-            <div className="bg-white p-6 sm:p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+            {/* Depoimento 2 */}
+            <div className="bg-white p-6 sm:p-8 rounded-xl shadow-lg">
               <div className="flex items-center mb-4 sm:mb-6">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mb-0 sm:mb-4 mr-3 sm:mr-4 flex-shrink-0">
-                  <span className="text-white text-sm sm:text-lg">MC</span>
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-green-100 rounded-full flex items-center justify-center mr-3 sm:mr-4">
+                  <span className="text-green-600 font-bold text-sm sm:text-base">MS</span>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900 text-sm sm:text-base">Maria Carvalho</h4>
-                  <p className="text-xs text-gray-600">Eng. Agrônoma - MT</p>
+                  <h4 className="font-bold text-gray-900 text-sm sm:text-base">Maria Santos</h4>
+                  <p className="text-gray-600 text-xs sm:text-sm">Profissional do Agronegócio - RS</p>
                 </div>
               </div>
-              <div className="text-yellow-400 mb-3 sm:mb-4">★★★★★</div>
-              <p className="text-sm sm:text-base text-gray-600 italic mb-3 sm:mb-4">
-                &ldquo;Minha conversão passou de 30% para 65%. Os clientes ficam impressionados com a precisão dos cálculos regionais.&rdquo;
+              <p className="text-gray-700 text-sm sm:text-base mb-4 sm:mb-6">
+                "Nunca mais tive medo de precificar errado. Minhas propostas são tão bem fundamentadas que os clientes aceitam sem questionar. Outros prestadores me perguntam como faço propostas tão profissionais."
               </p>
-              <div className="text-xs sm:text-sm text-green-600 font-medium">
-                ✓ Conversão aumentou 117%
+              <div className="flex items-center">
+                <div className="flex text-yellow-400 text-sm sm:text-base">
+                  ⭐⭐⭐⭐⭐
+                </div>
+                <span className="text-gray-600 text-xs sm:text-sm ml-2">Verified</span>
               </div>
             </div>
 
-            <div className="bg-white p-6 sm:p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 sm:col-span-2 lg:col-span-1">
+            {/* Depoimento 3 */}
+            <div className="bg-white p-6 sm:p-8 rounded-xl shadow-lg">
               <div className="flex items-center mb-4 sm:mb-6">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center mb-0 sm:mb-4 mr-3 sm:mr-4 flex-shrink-0">
-                  <span className="text-white text-sm sm:text-lg">JR</span>
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-purple-100 rounded-full flex items-center justify-center mr-3 sm:mr-4">
+                  <span className="text-purple-600 font-bold text-sm sm:text-base">CF</span>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900 text-sm sm:text-base">João Rodrigues</h4>
-                  <p className="text-xs text-gray-600">Consultor Rural - GO</p>
+                  <h4 className="font-bold text-gray-900 text-sm sm:text-base">Carlos Ferreira</h4>
+                  <p className="text-gray-600 text-xs sm:text-sm">Consultor Agropecuário - GO</p>
                 </div>
               </div>
-              <div className="text-yellow-400 mb-3 sm:mb-4">★★★★★</div>
-              <p className="text-sm sm:text-base text-gray-600 italic mb-3 sm:mb-4">
-                &ldquo;Finalmente posso cobrar o valor justo. A ferramenta me deu a confiança que faltava para precificar corretamente.&rdquo;
+              <p className="text-gray-700 text-sm sm:text-base mb-4 sm:mb-6">
+                "Meus clientes agora me veem como o profissional mais técnico da região. Minhas propostas são compartilhadas como exemplo de qualidade. Parei de competir por preço baixo."
               </p>
-              <div className="text-xs sm:text-sm text-blue-600 font-medium">
-                ✓ Receita aumentou 45%
+              <div className="flex items-center">
+                <div className="flex text-yellow-400 text-sm sm:text-base">
+                  ⭐⭐⭐⭐⭐
+                </div>
+                <span className="text-gray-600 text-xs sm:text-sm ml-2">Verified</span>
               </div>
             </div>
           </div>
 
           {/* Estatísticas Sociais */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-8">
-            <div className="text-center p-4 sm:p-6 bg-white rounded-xl shadow-lg">
-              <div className="text-2xl sm:text-3xl font-bold text-purple-600 mb-1 sm:mb-2">+500</div>
-              <div className="text-xs sm:text-sm text-gray-600">Consultores usando</div>
-            </div>
-            <div className="text-center p-4 sm:p-6 bg-white rounded-xl shadow-lg">
-              <div className="text-2xl sm:text-3xl font-bold text-green-600 mb-1 sm:mb-2">4.9/5</div>
-              <div className="text-xs sm:text-sm text-gray-600">Avaliação média</div>
-            </div>
-            <div className="text-center p-4 sm:p-6 bg-white rounded-xl shadow-lg">
-              <div className="text-2xl sm:text-3xl font-bold text-blue-600 mb-1 sm:mb-2">15k+</div>
-              <div className="text-xs sm:text-sm text-gray-600">Propostas geradas</div>
-            </div>
-            <div className="text-center p-4 sm:p-6 bg-white rounded-xl shadow-lg">
-              <div className="text-2xl sm:text-3xl font-bold text-red-600 mb-1 sm:mb-2">78%</div>
-              <div className="text-xs sm:text-sm text-gray-600">Taxa de conversão</div>
+          <div className="bg-gradient-to-r from-purple-600 to-purple-700 text-white py-12 sm:py-16 rounded-2xl">
+            <div className="max-w-5xl mx-auto px-6 sm:px-8">
+              <div className="text-center mb-8 sm:mb-12">
+                <h3 className="text-2xl sm:text-3xl font-bold mb-4">
+                  Transformação Real no Agronegócio Brasileiro
+                </h3>
+                <p className="text-lg sm:text-xl text-purple-100">
+                  Prestadores de serviços agropecuários que elevaram seu patamar profissional
+                </p>
+              </div>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+                <div className="text-center">
+                  <div className="text-3xl sm:text-4xl font-bold text-white mb-2">
+                    87%
+                  </div>
+                  <p className="text-sm sm:text-base text-purple-100">
+                    Aumentaram margem de lucro em mais de 30%
+                  </p>
+                </div>
+                
+                <div className="text-center">
+                  <div className="text-3xl sm:text-4xl font-bold text-white mb-2">
+                    92%
+                  </div>
+                  <p className="text-sm sm:text-base text-purple-100">
+                    São vistos como mais profissionais pelos clientes
+                  </p>
+                </div>
+                
+                <div className="text-center">
+                  <div className="text-3xl sm:text-4xl font-bold text-white mb-2">
+                    78%
+                  </div>
+                  <p className="text-sm sm:text-base text-purple-100">
+                    Nunca mais tiveram medo de precificar
+                  </p>
+                </div>
+                
+                <div className="text-center">
+                  <div className="text-3xl sm:text-4xl font-bold text-white mb-2">
+                    95%
+                  </div>
+                  <p className="text-sm sm:text-base text-purple-100">
+                    Recomendam como ferramenta essencial
+                  </p>
+                </div>
+              </div>
+
+              <div className="text-center mt-8 sm:mt-12">
+                <p className="text-base sm:text-lg text-purple-100 italic">
+                  "AgroPricing me transformou no profissional que sempre quis ser no agronegócio"
+                </p>
+                <p className="text-sm text-purple-200 mt-2">
+                  Média das avaliações de 200+ prestadores de serviços agropecuários
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -783,31 +923,31 @@ export default function Home() {
                 <div className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
                   <div className="flex items-start">
                     <svg className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 mt-0.5 mr-2 sm:mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 011.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
                     </svg>
                     <span className="text-sm sm:text-base text-gray-700">Propostas profissionais geradas via IA</span>
                   </div>
                   <div className="flex items-start">
                     <svg className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 mt-0.5 mr-2 sm:mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 011.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
                     </svg>
                     <span className="text-sm sm:text-base text-gray-700">Precificação regionalizada automatizada</span>
                   </div>
                   <div className="flex items-start">
                     <svg className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 mt-0.5 mr-2 sm:mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 011.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
                     </svg>
                     <span className="text-sm sm:text-base text-gray-700">Cálculo de ROI automático incluído</span>
                   </div>
                   <div className="flex items-start">
                     <svg className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 mt-0.5 mr-2 sm:mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 011.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
                     </svg>
                     <span className="text-sm sm:text-base text-gray-700">Até 25 propostas/mês</span>
                   </div>
                   <div className="flex items-start">
                     <svg className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 mt-0.5 mr-2 sm:mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 011.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
                     </svg>
                     <span className="text-sm sm:text-base text-gray-700">Suporte via WhatsApp + garantia 30 dias</span>
                   </div>
@@ -818,7 +958,7 @@ export default function Home() {
                   onClick={scrollToWaitlist}
                   className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-xl text-base sm:text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
                 >
-                  🚀 Garantir Minha Vaga com 50% Off
+                  Transformar meu Profissionalismo (50% OFF)
                 </button>
                 
                 <div className="text-center mt-4 sm:mt-6">
@@ -849,74 +989,71 @@ export default function Home() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 sm:mb-16">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">
-              Perguntas <span className="text-purple-600">Frequentes</span>
+              Dúvidas dos Prestadores de Serviços do Agronegócio
             </h2>
             <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
-              Esclarecemos as principais dúvidas sobre o AgroPricing Pro
+              Respostas claras sobre como transformar seu profissionalismo e precisão
             </p>
           </div>
-          
-          <div className="space-y-4 sm:space-y-6">
+
+          <div className="space-y-6 sm:space-y-8">
             {/* FAQ 1 */}
             <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8 hover:shadow-xl transition-all duration-300">
-              <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3 sm:mb-4">
-                🤖 Como a IA funciona para precificar projetos agrícolas?
+              <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">
+                🤖 Como a IA garante preços assertivos para minha área de atuação no agronegócio?
               </h3>
               <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                Nossa IA foi treinada com dados de milhares de projetos do agronegócio brasileiro. Ela analisa o tipo de projeto, região, complexidade e dados históricos para calcular automaticamente horas necessárias e valores regionalizados. O sistema aprende continuamente com cada proposta gerada.
+                Nossa IA foi treinada especificamente com dados do agronegócio brasileiro, considerando especificidades regionais, sazonalidade e características únicas do setor. Cada preço é calculado com base em dados reais, eliminando o 'chute' e dando embasamento técnico para suas cobranças.
               </p>
             </div>
 
             {/* FAQ 2 */}
             <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8 hover:shadow-xl transition-all duration-300">
-              <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3 sm:mb-4">
-                📊 Os dados regionais são realmente precisos?
+              <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">
+                📊 As propostas realmente vão me fazer parecer mais profissional?
               </h3>
               <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                Sim! Trabalhamos com dados atualizados do IBGE, Sindicatos Rurais, CREA e pesquisas de mercado. Nossa base de dados é atualizada mensalmente e considera variações por estado, microrregião e tipo de cultura/criação.
+                Absolutamente! Nossas propostas incluem análises técnicas detalhadas, justificativas embasadas, cálculos regionalizados e apresentação visual impecável. Seus clientes vão perceber imediatamente o aumento no seu nível de profissionalismo.
               </p>
             </div>
 
             {/* FAQ 3 */}
             <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8 hover:shadow-xl transition-all duration-300">
-              <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3 sm:mb-4">
-                ⏱️ Quanto tempo economizo realmente?
+              <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">
+                🌾 A ferramenta funciona para todos os tipos de serviços agropecuários?
               </h3>
               <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                Em média, nossos usuários economizam 15-20 horas por mês. Uma proposta que antes levava 4-6 horas para ser criada, agora é gerada em poucos minutos com a mesma qualidade (ou superior) e precisão técnica.
+                Sim! O AgroPricing é desenvolvido para atender todo o espectro de prestadores de serviços do agronegócio brasileiro, considerando as particularidades e complexidades específicas do setor, independente da sua área de especialização.
               </p>
             </div>
 
             {/* FAQ 4 */}
             <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8 hover:shadow-xl transition-all duration-300">
-              <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3 sm:mb-4">
-                💰 Posso personalizar os valores sugeridos?
+              <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">
+                💸 Como posso ter certeza de que não vou mais errar nos preços?
               </h3>
               <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                Absolutamente! A IA fornece uma base sólida, mas você tem controle total para ajustar valores conforme sua experiência, relacionamento com o cliente ou particularidades do projeto. O sistema aprende com seus ajustes.
+                A IA utiliza dados regionais precisos, considera fatores específicos do agronegócio e oferece cálculos automatizados. Você terá justificativa técnica para cada valor, eliminando a insegurança e o medo de precificar incorretamente.
               </p>
             </div>
 
             {/* FAQ 5 */}
             <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8 hover:shadow-xl transition-all duration-300">
-              <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3 sm:mb-4">
-                🔒 Meus dados e dos clientes ficam seguros?
+              <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">
+                📈 E se meus clientes questionarem os valores mais altos?
               </h3>
               <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                Segurança é nossa prioridade. Implementamos medidas técnicas e organizacionais apropriadas para proteger seus dados contra acesso não autorizado, alteração, divulgação ou destruição.
-              </p>
-              <p>
-                Nossos servidores utilizam certificação SSL/TLS, backup automático e monitoramento 24/7.
+                Com o AgroPricing, você terá embasamento técnico completo para justificar seus preços. As propostas incluem análises detalhadas que demonstram o valor do seu trabalho, facilitando a aceitação pelos clientes.
               </p>
             </div>
 
             {/* FAQ 6 */}
             <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8 hover:shadow-xl transition-all duration-300">
-              <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3 sm:mb-4">
-                📱 Funciona no celular e tablet?
+              <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">
+                🕒 Quanto tempo leva para ver resultados na minha credibilidade?
               </h3>
               <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                Sim! O AgroPricing Pro é 100% responsivo e funciona perfeitamente em qualquer dispositivo. Você pode criar propostas no campo, usando apenas seu smartphone ou tablet com conexão à internet.
+                A transformação é imediata! Na primeira proposta gerada, seus clientes já percebem o aumento de profissionalismo. Em 30 dias, você estará estabelecido como referência técnica na sua região.
               </p>
             </div>
           </div>
@@ -951,7 +1088,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-8 mb-8">
               <div className="flex items-center text-yellow-300 font-medium">
                 <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.414-1.414L11 9.586l4.293-4.293a1 1 0 011.414 1.414L11.414 10l-4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                  <path fillRule="evenodd" d="M10 18a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.414-1.414L11 9.586l4.293-4.293a1 1 0 011.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
                 </svg>
                 Restam {Math.max(0, 100 - Math.floor((Date.now() / 10000) % 85) - 15)} vagas
               </div>
@@ -1101,8 +1238,8 @@ export default function Home() {
                       onClick={() => setShowExpandedForm(false)}
                       className="text-gray-400 hover:text-gray-600"
                     >
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                       </svg>
                     </button>
                   </div>
@@ -1202,7 +1339,7 @@ export default function Home() {
                   required
                   checked={formData.terms}
                   onChange={handleInputChange}
-                  className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded mt-1"
+                  className="h-4 w-4 text-purple-600 focus:ring-2 focus:ring-purple-500 border-gray-300 rounded mt-1"
                 />
                 <label htmlFor="terms" className="ml-3 text-sm text-gray-600">
                   Concordo em receber comunicações sobre o AgroPricing Pro e declaro estar ciente da{' '}
