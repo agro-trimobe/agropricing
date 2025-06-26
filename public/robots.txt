@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Host
+Host: https://agropricing.com.br
+
+# Sitemaps
+Sitemap: https://agropricing.com.br/sitemap.xml
