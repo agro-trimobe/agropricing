@@ -23,6 +23,113 @@ export default function Home() {
   const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{type: 'success' | 'error', message: string} | null>(null);
+  const [showExpandedForm, setShowExpandedForm] = useState(false);
+  const [formErrors, setFormErrors] = useState<{[key: string]: string}>({});
+  const [fieldsTouched, setFieldsTouched] = useState<{[key: string]: boolean}>({});
+
+  // Funções de validação
+  const validateEmail = (email: string): string => {
+    if (!email) return 'Email é obrigatório';
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) return 'Email inválido';
+    return '';
+  };
+
+  const validatePhone = (phone: string): string => {
+    if (!phone) return 'WhatsApp é obrigatório';
+    const phoneRegex = /^\(\d{2}\)\s\d{4,5}-\d{4}$/;
+    if (!phoneRegex.test(phone)) return 'Formato: (11) 99999-9999';
+    return '';
+  };
+
+  const validateName = (name: string): string => {
+    if (!name) return 'Nome é obrigatório';
+    if (name.length < 2) return 'Nome muito curto';
+    if (!/^[a-zA-ZÀ-ÿ\s]+$/.test(name)) return 'Apenas letras e espaços';
+    return '';
+  };
+
+  // Formatação de telefone
+  const formatPhone = (value: string): string => {
+    const numbers = value.replace(/\D/g, '');
+    if (numbers.length <= 2) return numbers;
+    if (numbers.length <= 6) return `(${numbers.slice(0, 2)}) ${numbers.slice(2)}`;
+    if (numbers.length <= 10) return `(${numbers.slice(0, 2)}) ${numbers.slice(2, 6)}-${numbers.slice(6)}`;
+    return `(${numbers.slice(0, 2)}) ${numbers.slice(2, 7)}-${numbers.slice(7, 11)}`;
+  };
+
+  // Validação em tempo real
+  const handleFieldValidation = (name: string, value: string) => {
+    let error = '';
+    
+    switch (name) {
+      case 'name':
+        error = validateName(value);
+        break;
+      case 'email':
+        error = validateEmail(value);
+        break;
+      case 'phone':
+        error = validatePhone(value);
+        break;
+    }
+
+    setFormErrors(prev => ({ ...prev, [name]: error }));
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value, type } = e.target;
+    
+    let finalValue = value;
+    
+    // Formatação específica por campo
+    if (name === 'phone') {
+      finalValue = formatPhone(value);
+    }
+    
+    if (type === 'checkbox') {
+      const target = e.target as HTMLInputElement;
+      setFormData(prev => ({ ...prev, [name]: target.checked }));
+    } else {
+      setFormData(prev => ({ ...prev, [name]: finalValue }));
+    }
+
+    // Marcar campo como tocado
+    setFieldsTouched(prev => ({ ...prev, [name]: true }));
+    
+    // Validar campo se foi tocado
+    if (fieldsTouched[name] || name === 'phone') {
+      handleFieldValidation(name, finalValue);
+    }
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFieldsTouched(prev => ({ ...prev, [name]: true }));
+    handleFieldValidation(name, value);
+  };
+
+  // Cálculo de progresso do formulário
+  const calculateProgress = (): number => {
+    const requiredFields = ['name', 'email', 'phone'];
+    const filledFields = requiredFields.filter(field => formData[field as keyof typeof formData] && !formErrors[field]);
+    return Math.round((filledFields.length / requiredFields.length) * 100);
+  };
+
+  const getProgressMessage = (): string => {
+    const progress = calculateProgress();
+    if (progress === 0) return 'Vamos começar! Preencha seus dados básicos';
+    if (progress < 100) return `Quase lá! ${100 - progress}% restante`;
+    return 'Perfeito! Pronto para garantir sua vaga';
+  };
+
+  const scrollToSection = (sectionId: string) => {
+    document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const scrollToWaitlist = () => {
+    document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   useEffect(() => {
     const targetDate = new Date('2025-07-31T23:59:59');
@@ -85,14 +192,6 @@ export default function Home() {
     return () => clearInterval(timer);
   }, [subscriberCount]);
 
-  // Função para rolar até a lista de espera
-  const scrollToWaitlist = () => {
-    const waitlistSection = document.getElementById('waitlist');
-    if (waitlistSection) {
-      waitlistSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -130,13 +229,6 @@ export default function Home() {
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }));
-  };
-
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
@@ -162,115 +254,60 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section id="hero" className="bg-gradient-to-br from-purple-50 to-purple-100 py-16 sm:py-24">
+      <section id="hero" className="bg-gradient-to-br from-purple-50 to-purple-100 py-12 sm:py-16 lg:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            <div>
-              <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2 sm:gap-0 mb-8">
-                <div className="inline-flex items-center bg-purple-100 text-purple-700 px-4 py-2 rounded-full text-sm font-medium">
-                  🚀 Pré-lançamento - Acesso Antecipado
-                </div>
-              </div>
+          <div className="text-center">
+            <div className="flex justify-center mb-6 sm:mb-8">
+              <span className="bg-gradient-to-r from-purple-600 to-purple-700 text-white px-4 py-2 rounded-full text-sm font-medium">
+                🚀 Lançamento Oficial - Lista VIP Aberta
+              </span>
+            </div>
+            
+            <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-gray-900 mb-6 sm:mb-8 leading-tight">
+              Pare de <span className="text-purple-600">Perder Dinheiro</span><br className="hidden sm:block" />
+              com Precificação Manual
+            </h1>
+            
+            <p className="text-lg sm:text-xl lg:text-2xl text-gray-600 mb-8 sm:mb-10 max-w-4xl mx-auto leading-relaxed">
+              A primeira IA brasileira especializada em consultoria agrícola que calcula preços regionalizados 
+              e gera propostas comerciais em <strong>menos de 3 segundos</strong>
+            </p>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-                Pare de Perder 
-                <span className="text-purple-600"> Dinheiro </span>
-                com Precificação
-              </h1>
-              <p className="text-xl sm:text-2xl text-gray-700 mb-8 leading-relaxed">
-                IA especializada que calcula preços justos e gera propostas profissionais 
-                para consultoria agronômica em minutos, não horas.
-              </p>
-              <div className="space-y-4 mb-8">
-                <div className="flex items-center">
-                  <div className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
-                    <span className="text-white text-xs">✓</span>
-                  </div>
-                  <span className="text-lg text-gray-800">Dados regionalizados de 5.570 municípios</span>
-                </div>
-                <div className="flex items-center">
-                  <div className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
-                    <span className="text-white text-xs">✓</span>
-                  </div>
-                  <span className="text-lg text-gray-800">Economize 15 horas por mês</span>
-                </div>
-                <div className="flex items-center">
-                  <div className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
-                    <span className="text-white text-xs">✓</span>
-                  </div>
-                  <span className="text-lg text-gray-800">ROI comprovado na primeira proposta</span>
-                </div>
+            {/* Benefícios Principais */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-10 sm:mb-12">
+              <div className="flex flex-col items-center p-4 sm:p-6 bg-white/60 backdrop-blur-sm rounded-2xl">
+                <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-purple-600 mb-2">112x</div>
+                <div className="text-sm sm:text-base text-gray-700 text-center">Mais rápido que precificação manual</div>
               </div>
-              
-              {/* Countdown Timer */}
-              <div className="bg-red-50 border border-red-200 rounded-xl p-6 mb-8">
-                <div className="text-red-700 font-semibold text-lg mb-3">⏰ Oferta por tempo limitado - 50% OFF!</div>
-                <div className="flex space-x-4 justify-center">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-red-600">{timeLeft.days}</div>
-                    <div className="text-sm text-red-500">Dias</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-red-600">{timeLeft.hours}</div>
-                    <div className="text-sm text-red-500">Horas</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-red-600">{timeLeft.minutes}</div>
-                    <div className="text-sm text-red-500">Min</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-red-600">{timeLeft.seconds}</div>
-                    <div className="text-sm text-red-500">Seg</div>
-                  </div>
-                </div>
+              <div className="flex flex-col items-center p-4 sm:p-6 bg-white/60 backdrop-blur-sm rounded-2xl">
+                <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-purple-600 mb-2">15h</div>
+                <div className="text-sm sm:text-base text-gray-700 text-center">Economizadas por mês</div>
               </div>
-
-              {/* CTA Principal Único */}
-              <div className="text-center">
-                <button 
-                  onClick={() => document.getElementById('waitlist-form')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="bg-gradient-to-r from-purple-600 to-purple-700 text-white px-12 py-6 rounded-xl font-bold hover:from-purple-700 hover:to-purple-800 transition-all duration-300 hover:scale-105 shadow-xl hover:shadow-2xl text-xl"
-                >
-                  🔥 Garantir 50% de Desconto Agora
-                </button>
-                <p className="text-sm text-gray-600 mt-4">
-                  ✅ Sem compromisso • ✅ Lista de espera gratuita • ✅ Acesso prioritário
-                </p>
+              <div className="flex flex-col items-center p-4 sm:p-6 bg-white/60 backdrop-blur-sm rounded-2xl">
+                <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-purple-600 mb-2">40%</div>
+                <div className="text-sm sm:text-base text-gray-700 text-center">Mais conversões</div>
               </div>
             </div>
-            <div className="relative">
-              <div className="bg-white rounded-2xl shadow-2xl p-8 transform rotate-3 hover:rotate-0 transition-transform duration-300">
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-600">Proposta AgroPricing</span>
-                    <span className="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Em 3 segundos</span>
-                  </div>
-                  <div className="h-4 bg-gray-200 rounded-full">
-                    <div className="h-4 bg-purple-500 rounded-full w-3/4"></div>
-                  </div>
-                  <div className="space-y-2">
-                    <div className="flex justify-between">
-                      <span className="text-sm text-gray-600">Análise de Solo</span>
-                      <span className="text-sm font-medium">R$ 2.500</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-sm text-gray-600">Consultoria Técnica</span>
-                      <span className="text-sm font-medium">R$ 4.200</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-sm text-gray-600">Relatório Final</span>
-                      <span className="text-sm font-medium">R$ 1.800</span>
-                    </div>
-                    <div className="border-t pt-2">
-                      <div className="flex justify-between font-bold">
-                        <span>Total</span>
-                        <span className="text-purple-600">R$ 8.500</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+
+            {/* CTAs Principais */}
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center mb-8 sm:mb-10">
+              <button 
+                onClick={() => scrollToWaitlist()}
+                className="w-full sm:w-auto bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-bold py-4 px-6 sm:px-8 rounded-xl text-base sm:text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+              >
+                🚀 Garantir Vaga VIP (50% OFF)
+              </button>
+              <button 
+                onClick={() => document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' })}
+                className="w-full sm:w-auto border-2 border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white font-bold py-4 px-6 sm:px-8 rounded-xl text-base sm:text-lg transition-all duration-300"
+              >
+                📺 Ver Demonstração
+              </button>
             </div>
+
+            <p className="text-sm sm:text-base text-gray-500">
+              ✅ Teste grátis por 7 dias • ✅ Cancele quando quiser • ✅ Suporte especializado
+            </p>
           </div>
         </div>
       </section>
@@ -348,331 +385,156 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Como Funciona - Seção reorganizada */}
-      <section id="demo" className="py-12 sm:py-20 bg-gradient-to-br from-purple-50 to-blue-50">
+      {/* Seção Como Funciona - Versão Consolidada e Melhorada */}
+      <section id="demo" className="py-16 sm:py-24 bg-gradient-to-br from-purple-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12 sm:mb-16">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">
-              Como Funciona o <span className="text-purple-600">AgroPricing Pro</span>
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
+              Veja Como Funciona
             </h2>
-            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
-              Em 3 passos simples, nossa IA transforma sua descrição em uma proposta completa e profissional
+            <p className="text-lg sm:text-xl text-gray-600 mb-8">
+              Em apenas 3 etapas simples, nossa IA especializada transforma sua descrição em uma proposta profissional completa
             </p>
+            <div className="inline-flex items-center bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-medium">
+              ⚡ Gerado em menos de 3 segundos
+            </div>
           </div>
 
-          {/* Processo em 3 etapas */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
-            {/* Etapa 1 */}
-            <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-white text-2xl font-bold">1</span>
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Descreva o Projeto</h3>
-              <p className="text-gray-600 mb-6 leading-relaxed">
-                Digite em linguagem natural o que seu cliente precisa: tipo de consultoria, área, localização e objetivos.
-              </p>
-              <div className="bg-white p-4 rounded-lg shadow-md border border-gray-200">
-                <p className="text-sm text-gray-700 italic">
-                  &quot;Consultoria em agricultura de precisão para 800 hectares de milho em Primavera do Leste/MT&quot;
+          {/* Demonstração Visual Lado a Lado */}
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 mb-16">
+            {/* Input do Usuário */}
+            <div className="space-y-6">
+              <div className="text-center lg:text-left">
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">
+                  1. Você Descreve Seu Projeto
+                </h3>
+                <p className="text-gray-600 mb-6">
+                  Digite naturalmente o que seu cliente precisa. Nossa IA entende o contexto automaticamente.
                 </p>
               </div>
-            </div>
-
-            {/* Etapa 2 */}
-            <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-white text-2xl font-bold">2</span>
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">IA Analisa e Calcula</h3>
-              <p className="text-gray-600 mb-6 leading-relaxed">
-                Nossa IA especializada analisa a complexidade, consulta dados regionais e calcula automaticamente horas e preços.
-              </p>
-              <div className="bg-gradient-to-r from-purple-100 to-blue-100 p-4 rounded-lg shadow-md">
-                <p className="text-sm font-medium text-purple-700">
-                  ⚡ Processamento em 3 segundos<br/>
-                  📊 Dados regionalizados do MT<br/>
-                  🎯 180h × R$ 165/h = R$ 29.700
-                </p>
-              </div>
-            </div>
-
-            {/* Etapa 3 */}
-            <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-white text-2xl font-bold">3</span>
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Proposta Profissional</h3>
-              <p className="text-gray-600 mb-6 leading-relaxed">
-                Receba uma proposta completa com escopo, cronograma, ROI calculado e formatação profissional para enviar ao cliente.
-              </p>
-              <div className="bg-white p-4 rounded-lg shadow-md border border-green-200">
-                <p className="text-sm text-green-700 font-medium">
-                  ✅ Proposta completa gerada<br/>
-                  📈 ROI: 506% (Payback 2,1 meses)<br/>
-                  📄 Pronta para exportar em PDF
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Benefícios Quantificados */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mt-16">
-            <div className="text-center p-6 bg-white rounded-xl shadow-lg">
-              <div className="text-3xl font-bold text-purple-600 mb-2">3s</div>
-              <div className="text-sm text-gray-600">Tempo de processamento</div>
-            </div>
-            <div className="text-center p-6 bg-white rounded-xl shadow-lg">
-              <div className="text-3xl font-bold text-green-600 mb-2">15h</div>
-              <div className="text-sm text-gray-600">Economizadas por mês</div>
-            </div>
-            <div className="text-center p-6 bg-white rounded-xl shadow-lg">
-              <div className="text-3xl font-bold text-blue-600 mb-2">100%</div>
-              <div className="text-sm text-gray-600">Precisão regionalizada</div>
-            </div>
-            <div className="text-center p-6 bg-white rounded-xl shadow-lg">
-              <div className="text-3xl font-bold text-red-600 mb-2">27</div>
-              <div className="text-sm text-gray-600">Estados cobertos</div>
-            </div>
-          </div>
-
-          {/* CTA */}
-          <div className="text-center mt-12">
-            <button 
-              onClick={() => document.getElementById('waitlist-form')?.scrollIntoView({ behavior: 'smooth' })}
-              className="bg-gradient-to-r from-purple-600 to-purple-700 text-white px-8 py-4 rounded-xl font-bold hover:from-purple-700 hover:to-purple-800 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl text-lg"
-            >
-              🚀 Quero Experimentar Agora
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* Veja em Ação - Demonstração Visual */}
-      <section id="demo-visual" className="py-12 sm:py-20 bg-gradient-to-br from-gray-50 to-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12 sm:mb-16">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">
-              Veja Nossa IA em <span className="text-purple-600">Ação</span>
-            </h2>
-            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
-              De uma descrição simples para uma proposta completa em segundos
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
-            {/* Input Side */}
-            <div className="bg-white rounded-xl shadow-lg p-6 sm:p-8 border border-gray-200 order-2 lg:order-1">
-              <div className="mb-6">
+              
+              <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-purple-200">
                 <div className="flex items-center mb-4">
-                  <div className="w-6 h-6 sm:w-8 sm:h-8 bg-blue-500 rounded-lg mr-3 flex-shrink-0"></div>
-                  <h3 className="font-bold text-gray-900 text-base sm:text-lg">Sua Descrição</h3>
+                  <div className="w-3 h-3 bg-red-500 rounded-full mr-2"></div>
+                  <div className="w-3 h-3 bg-yellow-500 rounded-full mr-2"></div>
+                  <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
+                  <span className="text-sm text-gray-500 ml-2">Input do Cliente</span>
                 </div>
-                <div className="bg-white p-4 rounded-lg border-2 border-dashed border-gray-300">
-                  <p className="text-gray-700 italic text-sm sm:text-base">
-                    &ldquo;Consultoria para implementação de agricultura de precisão em fazenda de milho de 800 hectares em Primavera do Leste/MT. Cliente quer aumentar produtividade e reduzir custos com defensivos.&rdquo;
-                  </p>
+                <div className="text-sm text-gray-700 leading-relaxed">
+                  &quot;Preciso de uma consultoria para otimizar a produtividade da minha fazenda de soja no Mato Grosso. 
+                  São 500 hectares e quero implementar agricultura de precisão para aumentar o lucro por hectare.&quot;
                 </div>
-              </div>
-
-              {/* Informações Detectadas */}
-              <div className="mb-6">
-                <h4 className="font-semibold text-gray-900 mb-3 text-sm sm:text-base">🔍 IA Detectou:</h4>
-                <div className="space-y-2">
-                  {['Tipo: Agricultura de Precisão', 'Área: 800 hectares', 'Local: Primavera do Leste/MT', 'Foco: Produtividade + Economia'].map((item, index) => (
-                    <div key={index} className="flex items-center text-xs sm:text-sm text-gray-700">
-                      <div className="w-2 h-2 bg-green-500 rounded-full mr-2 flex-shrink-0"></div>
-                      {item}
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Cálculo Automático */}
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <h4 className="font-semibold text-gray-900 mb-3 text-sm sm:text-base">⚡ Cálculo Automático:</h4>
-                <div className="space-y-2 text-xs sm:text-sm">
-                  <div className="flex justify-between">
-                    <span>Tipo:</span>
-                    <span className="font-medium">Agricultura de Precisão</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Complexidade:</span>
-                    <span className="font-medium">Alta</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Área:</span>
-                    <span className="font-medium">800 hectares</span>
-                  </div>
-                  <div className="flex justify-between font-bold text-base sm:text-lg">
-                    <span>Total sugerido:</span>
-                    <span className="text-purple-600">R$ 29.700</span>
+                <div className="mt-4 pt-4 border-t border-gray-200">
+                  <div className="text-xs text-gray-500 mb-2">IA detecta automaticamente:</div>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="bg-purple-100 text-purple-700 px-2 py-1 rounded-full text-xs">🌾 Cultura: Soja</span>
+                    <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-xs">📍 Local: MT</span>
+                    <span className="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs">📊 Foco: Produtividade</span>
+                    <span className="bg-orange-100 text-orange-700 px-2 py-1 rounded-full text-xs">⚙️ Tech: Precisão</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Output Side - Proposta Gerada */}
-            <div className="bg-white rounded-xl shadow-xl p-6 sm:p-8 border border-gray-200 relative order-1 lg:order-2">
-              <div className="absolute -top-2 -right-2 sm:-top-3 sm:-right-3">
-                <div className="bg-green-500 text-white px-2 py-1 sm:px-3 sm:py-1 rounded-full text-xs sm:text-sm font-bold">
-                  ✓ Gerado em 3 segundos
-                </div>
+            {/* Output da IA */}
+            <div className="space-y-6">
+              <div className="text-center lg:text-left">
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">
+                  2. IA Gera Proposta Completa
+                </h3>
+                <p className="text-gray-600 mb-6">
+                  Proposta profissional com precificação regionalizada, cronograma e análise de ROI automática.
+                </p>
               </div>
 
-              {/* Header da Proposta */}
-              <div className="border-b border-gray-200 pb-4 sm:pb-6 mb-4 sm:mb-6">
-                <div className="flex items-center justify-between mb-2 sm:mb-4">
-                  <div className="flex items-center">
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 bg-purple-600 rounded-lg flex items-center justify-center mr-2 sm:mr-3 flex-shrink-0">
-                      <span className="text-white font-bold text-sm sm:text-lg">A</span>
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-gray-900 text-sm sm:text-base">PROPOSTA COMERCIAL</h3>
-                      <p className="text-xs text-gray-600">Consultoria em Agricultura de Precisão</p>
-                    </div>
+              <div className="bg-white rounded-2xl shadow-xl p-6 border border-gray-200">
+                <div className="border-b border-gray-200 pb-4 mb-4">
+                  <div className="flex items-center justify-between">
+                    <h4 className="font-bold text-lg text-gray-900">Proposta Comercial</h4>
+                    <span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-medium">GERADO AUTOMATICAMENTE</span>
                   </div>
-                  <div className="text-right">
-                    <div className="text-xs text-gray-500">#2024-001</div>
-                    <div className="text-xs text-gray-500">25/06/2024</div>
-                  </div>
+                  <p className="text-sm text-gray-500 mt-1">Consultoria em Agricultura de Precisão - Soja MT</p>
                 </div>
-              </div>
 
-              {/* Resumo Executivo */}
-              <div className="mb-4 sm:mb-6">
-                <h4 className="font-semibold text-gray-900 mb-2 sm:mb-3 text-sm sm:text-base">📊 Resumo Executivo</h4>
-                <div className="bg-gray-50 p-3 sm:p-4 rounded-lg">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4 text-xs sm:text-sm">
-                    <div className="flex flex-col sm:flex-row">
-                      <span className="text-gray-600">Área:</span>
-                      <span className="sm:ml-2 font-medium">800 hectares</span>
-                    </div>
-                    <div className="flex flex-col sm:flex-row">
-                      <span className="text-gray-600">Região:</span>
-                      <span className="sm:ml-2 font-medium">Primavera do Leste/MT</span>
-                    </div>
-                    <div className="flex flex-col sm:flex-row">
-                      <span className="text-gray-600">Cultura:</span>
-                      <span className="sm:ml-2 font-medium">Milho</span>
-                    </div>
-                    <div className="flex flex-col sm:flex-row">
-                      <span className="text-gray-600">Tipo:</span>
-                      <span className="sm:ml-2 font-medium">Agricultura de Precisão</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Escopo de Trabalho */}
-              <div className="mb-4 sm:mb-6">
-                <h4 className="font-semibold text-gray-900 mb-2 sm:mb-3 text-sm sm:text-base">🎯 Escopo de Trabalho</h4>
-                <div className="space-y-2 text-xs sm:text-sm">
-                  {[
-                    'Análise e mapeamento de variabilidade do solo',
-                    'Implementação de sistema de agricultura de precisão',
-                    'Treinamento da equipe técnica',
-                    'Acompanhamento e otimização do primeiro ciclo'
-                  ].map((item, index) => (
-                    <div key={index} className="flex items-start">
-                      <span className="w-2 h-2 bg-purple-500 rounded-full mr-2 mt-1 flex-shrink-0"></span>
-                      <span>{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Valor e ROI */}
-              <div className="bg-gradient-to-r from-purple-50 to-blue-50 p-3 sm:p-4 rounded-lg mb-3 sm:mb-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                <div className="space-y-4 text-sm">
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-1 sm:mb-2 text-sm sm:text-base">💰 Investimento</h4>
-                    <div className="text-lg sm:text-2xl font-bold text-purple-600">R$ 29.700</div>
-                    <div className="text-xs text-gray-600">180 horas × R$ 165/h (MT)</div>
+                    <h5 className="font-semibold text-gray-900 mb-2">📋 Escopo de Trabalho</h5>
+                    <ul className="text-gray-600 space-y-1 text-xs">
+                      <li>• Análise de solo georeferenciada (500ha)</li>
+                      <li>• Mapeamento de produtividade histórica</li>
+                      <li>• Implementação de taxa variável</li>
+                      <li>• Monitoramento safra 2024/25</li>
+                    </ul>
                   </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-1 sm:mb-2 text-sm sm:text-base">📈 ROI Estimado</h4>
-                    <div className="text-lg sm:text-2xl font-bold text-green-600">506%</div>
-                    <div className="text-xs text-gray-600">Payback em 2,1 meses</div>
-                  </div>
-                </div>
-              </div>
 
-              {/* Cronograma */}
-              <div className="mb-3 sm:mb-4">
-                <h4 className="font-semibold text-gray-900 mb-2 sm:mb-3 text-sm sm:text-base">📅 Cronograma</h4>
-                <div className="space-y-1 sm:space-y-2 text-xs sm:text-sm">
-                  {[
-                    ['Fase 1 - Diagnóstico e Planejamento:', '30 dias'],
-                    ['Fase 2 - Implementação:', '60 dias'],
-                    ['Fase 3 - Acompanhamento:', '90 dias']
-                  ].map(([phase, duration], index) => (
-                    <div key={index} className="flex justify-between">
-                      <span>{phase}</span>
-                      <span className="font-medium">{duration}</span>
+                  <div className="bg-gray-50 p-3 rounded-lg">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="font-semibold text-gray-900">💰 Investimento</span>
+                      <span className="text-lg font-bold text-purple-600">R$ 29.700</span>
                     </div>
-                  ))}
-                </div>
-              </div>
+                    <div className="text-xs text-gray-600">
+                      180h × R$ 165/h (valor regionalizado MT)
+                    </div>
+                  </div>
 
-              {/* Footer da Proposta */}
-              <div className="text-center pt-3 sm:pt-4 border-t border-gray-200">
-                <div className="text-xs text-gray-500">
-                  Proposta válida por 30 dias • Gerada automaticamente via AgroPricing Pro
+                  <div className="bg-green-50 p-3 rounded-lg">
+                    <div className="flex justify-between items-center mb-1">
+                      <span className="font-semibold text-green-800">📈 ROI Estimado</span>
+                      <span className="text-lg font-bold text-green-600">506%</span>
+                    </div>
+                    <div className="text-xs text-green-600">
+                      Payback: 2,1 meses | Retorno: R$ 150.000/ano
+                    </div>
+                  </div>
+
+                  <div>
+                    <h5 className="font-semibold text-gray-900 mb-2">⏱️ Cronograma</h5>
+                    <div className="text-xs text-gray-600 space-y-1">
+                      <div>Fase 1 (30 dias): Análise e diagnóstico</div>
+                      <div>Fase 2 (60 dias): Implementação</div>
+                      <div>Fase 3 (90 dias): Monitoramento</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-
-          {/* Call to Action */}
-          <div className="text-center mt-8 sm:mt-12">
-            <div className="bg-white p-6 sm:p-8 rounded-xl shadow-lg max-w-2xl mx-auto">
-              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">
-                Gere Propostas Assim em <span className="text-purple-600">Segundos</span>
-              </h3>
-              <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">
-                Pare de perder horas criando propostas manualmente. Com o AgroPricing Pro, você foca no que realmente importa: fechar negócios e atender clientes.
-              </p>
-              <button 
-                onClick={() => document.getElementById('waitlist-form')?.scrollIntoView({ behavior: 'smooth' })}
-                className="bg-purple-600 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-bold hover:bg-purple-700 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl text-sm sm:text-base"
-              >
-                🚀 Quero Testar Gratuitamente
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Seção Exemplo de Proposta Profissional */}
-      <section id="proposal" className="py-12 sm:py-20 bg-gradient-to-br from-purple-50 to-blue-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12 sm:mb-16">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">
-              Veja um Exemplo da <span className="text-purple-600">Proposta Profissional</span> Gerada
-            </h2>
-            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
-              Em segundos, nossa IA transforma sua descrição em uma proposta completa e profissional
-            </p>
           </div>
 
           {/* Benefícios Quantificados */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 mb-12 sm:mb-16">
-            <div className="text-center p-4 sm:p-6 bg-white rounded-xl shadow-lg">
-              <div className="text-2xl sm:text-3xl font-bold text-purple-600 mb-1 sm:mb-2">112x</div>
-              <div className="text-xs sm:text-sm text-gray-600">Mais rápido que processo manual</div>
+          <div className="bg-white rounded-2xl p-8 shadow-lg">
+            <h3 className="text-2xl font-bold text-center text-gray-900 mb-8">
+              Resultados Comprovados
+            </h3>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-purple-600 mb-2">112x</div>
+                <div className="text-sm text-gray-600">Mais rápido que planilhas</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-blue-600 mb-2">15h</div>
+                <div className="text-sm text-gray-600">Economizadas por mês</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-green-600 mb-2">40%</div>
+                <div className="text-sm text-gray-600">Taxa de conversão</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-orange-600 mb-2">27</div>
+                <div className="text-sm text-gray-600">Estados cobertos</div>
+              </div>
             </div>
-            <div className="text-center p-4 sm:p-6 bg-white rounded-xl shadow-lg">
-              <div className="text-2xl sm:text-3xl font-bold text-green-600 mb-1 sm:mb-2">15h</div>
-              <div className="text-xs sm:text-sm text-gray-600">Economizadas por mês em média</div>
-            </div>
-            <div className="text-center p-4 sm:p-6 bg-white rounded-xl shadow-lg">
-              <div className="text-2xl sm:text-3xl font-bold text-blue-600 mb-1 sm:mb-2">40%</div>
-              <div className="text-xs sm:text-sm text-gray-600">Aumento na taxa de conversão</div>
-            </div>
-            <div className="text-center p-4 sm:p-6 bg-white rounded-xl shadow-lg">
-              <div className="text-2xl sm:text-3xl font-bold text-red-600 mb-1 sm:mb-2">27</div>
-              <div className="text-xs sm:text-sm text-gray-600">Estados com dados regionalizados</div>
-            </div>
+          </div>
+
+          <div className="text-center mt-12">
+            <button
+              onClick={() => scrollToSection('waitlist')}
+              className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-bold py-4 px-8 rounded-xl text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+            >
+              🚀 Quero Testar Gratuitamente
+            </button>
+            <p className="text-sm text-gray-500 mt-3">
+              Sem cartão de crédito • Teste por 7 dias grátis
+            </p>
           </div>
         </div>
       </section>
@@ -691,7 +553,7 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
             <div className="group p-6 sm:p-8 border border-gray-200 rounded-xl hover:shadow-xl hover:border-purple-300 transition-all duration-300 transform hover:-translate-y-2">
               <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300 mx-auto sm:mx-0">
-                <svg className="w-6 h-6 sm:w-7 sm:h-7 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <svg className="w-6 h-6 sm:w-7 sm:h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M16,6L18.29,8.29L13.41,13.17L9.41,9.17L2,16.59L3.41,18L9.41,12L13.41,16L19.71,9.71L22,12V6H16Z"/>
                 </svg>
               </div>
@@ -706,7 +568,9 @@ export default function Home() {
                   'Conhecimento específico do agronegócio'
                 ].map((item, index) => (
                   <div key={index} className="flex items-center text-xs sm:text-sm text-purple-600">
-                    <span className="w-3 h-3 sm:w-4 sm:h-4 bg-purple-100 rounded-full flex items-center justify-center mr-2 flex-shrink-0">✓</span>
+                    <svg className="w-3 h-3 sm:w-4 sm:h-4 text-green-500 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
                     <span>{item}</span>
                   </div>
                 ))}
@@ -715,8 +579,8 @@ export default function Home() {
 
             <div className="group p-6 sm:p-8 border border-gray-200 rounded-xl hover:shadow-xl hover:border-purple-300 transition-all duration-300 transform hover:-translate-y-2">
               <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-r from-green-500 to-green-600 rounded-xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300 mx-auto sm:mx-0">
-                <svg className="w-6 h-6 sm:w-7 sm:h-7 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                <svg className="w-6 h-6 sm:w-7 sm:h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 011.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
                 </svg>
               </div>
               <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4 text-center sm:text-left">Precificação Inteligente</h3>
@@ -730,7 +594,9 @@ export default function Home() {
                   'Justificativas técnicas incluídas'
                 ].map((item, index) => (
                   <div key={index} className="flex items-center text-xs sm:text-sm text-green-600">
-                    <span className="w-3 h-3 sm:w-4 sm:h-4 bg-green-100 rounded-full flex items-center justify-center mr-2 flex-shrink-0">✓</span>
+                    <svg className="w-3 h-3 sm:w-4 sm:h-4 text-green-500 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
                     <span>{item}</span>
                   </div>
                 ))}
@@ -739,7 +605,7 @@ export default function Home() {
 
             <div className="group p-6 sm:p-8 border border-gray-200 rounded-xl hover:shadow-xl hover:border-purple-300 transition-all duration-300 transform hover:-translate-y-2 sm:col-span-2 lg:col-span-1">
               <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300 mx-auto sm:mx-0">
-                <svg className="w-6 h-6 sm:w-7 sm:h-7 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <svg className="w-6 h-6 sm:w-7 sm:h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M14,2A3,3 0 0,1 17,5V11A3,3 0 0,1 14,14A3,3 0 0,1 11,11V5A3,3 0 0,1 14,2M19,11C19,14.53 16.39,17.44 13,17.93V21H11V17.93C7.61,17.44 5,14.53 5,11H7A5,5 0 0,0 12,16A5,5 0 0,0 17,11H19Z"/>
                 </svg>
               </div>
@@ -754,7 +620,9 @@ export default function Home() {
                   'Export profissional em PDF'
                 ].map((item, index) => (
                   <div key={index} className="flex items-center text-xs sm:text-sm text-blue-600">
-                    <span className="w-3 h-3 sm:w-4 sm:h-4 bg-blue-100 rounded-full flex items-center justify-center mr-2 flex-shrink-0">✓</span>
+                    <svg className="w-3 h-3 sm:w-4 sm:h-4 text-green-500 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
                     <span>{item}</span>
                   </div>
                 ))}
@@ -908,7 +776,7 @@ export default function Home() {
                     <span className="text-sm sm:text-base text-gray-500 line-through">R$ 249</span>
                     <span className="bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">-50%</span>
                   </div>
-                  <p className="text-xs sm:text-sm text-gray-600">Lista de espera - primeiro ano</p>
+                  <p className="text-xs text-gray-600">Lista de espera - primeiro ano</p>
                 </div>
 
                 {/* Features */}
@@ -976,7 +844,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Seção FAQ */}
+      {/* FAQ */}
       <section id="faq" className="py-12 sm:py-20 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 sm:mb-16">
@@ -1071,18 +939,53 @@ export default function Home() {
       {/* Formulário Final - Lista de Espera */}
       <section id="waitlist" className="py-12 sm:py-20 bg-gradient-to-br from-purple-600 to-purple-800">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12 sm:mb-16">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4 sm:mb-6">
-              Garanta sua Vaga na <span className="text-yellow-300">Lista VIP</span>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
+              Garanta Sua Vaga VIP com <span className="text-yellow-300">50% de Desconto</span>
             </h2>
-            <p className="text-lg sm:text-xl text-purple-100 max-w-3xl mx-auto">
-              Seja um dos primeiros a revolucionar sua consultoria agrícola com desconto exclusivo de 50%
+            <p className="text-lg sm:text-xl text-purple-100 mb-8">
+              Seja um dos primeiros 100 consultores a usar nossa IA. Oferta limitada por tempo!
             </p>
+            
+            {/* Elementos de Urgência */}
+            <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-8 mb-8">
+              <div className="flex items-center text-yellow-300 font-medium">
+                <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.414-1.414L11 9.586l4.293-4.293a1 1 0 011.414 1.414L11.414 10l-4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+                Restam {Math.max(0, 100 - Math.floor((Date.now() / 10000) % 85) - 15)} vagas
+              </div>
+              <div className="flex items-center text-yellow-300 font-medium">
+                <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
+                </svg>
+                Oferta válida até {new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toLocaleDateString('pt-BR')}
+              </div>
+            </div>
+
+            {/* Contador de Tempo */}
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 mb-8">
+              <div className="text-sm text-purple-100 mb-2">OFERTA ESPECIAL EXPIRA EM:</div>
+              <div className="grid grid-cols-4 gap-4 text-center">
+                {[
+                  { label: 'Dias', value: timeLeft.days },
+                  { label: 'Horas', value: timeLeft.hours },
+                  { label: 'Min', value: timeLeft.minutes },
+                  { label: 'Seg', value: timeLeft.seconds }
+                ].map(({ label, value }) => (
+                  <div key={label} className="bg-white/20 rounded-lg p-3">
+                    <div className="text-2xl sm:text-3xl font-bold text-white">{value.toString().padStart(2, '0')}</div>
+                    <div className="text-xs text-purple-100">{label}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
-          
-          <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-2xl p-6 sm:p-8 lg:p-10">
+
+          <div className="bg-white rounded-2xl shadow-2xl p-8 sm:p-10">
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+              {/* Campos Principais - Sempre Visíveis */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
                     Nome Completo *
@@ -1094,9 +997,15 @@ export default function Home() {
                     required
                     value={formData.name}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-base"
+                    onBlur={handleBlur}
+                    className={`w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 ${
+                      fieldsTouched.name && formErrors.name ? 'border-red-500' : ''
+                    }`}
                     placeholder="Seu nome completo"
                   />
+                  {fieldsTouched.name && formErrors.name && (
+                    <div className="text-xs text-red-500 mt-1">{formErrors.name}</div>
+                  )}
                 </div>
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
@@ -1109,111 +1018,182 @@ export default function Home() {
                     required
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-base"
+                    onBlur={handleBlur}
+                    className={`w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 ${
+                      fieldsTouched.email && formErrors.email ? 'border-red-500' : ''
+                    }`}
                     placeholder="seu@email.com"
                   />
+                  {fieldsTouched.email && formErrors.email && (
+                    <div className="text-xs text-red-500 mt-1">{formErrors.email}</div>
+                  )}
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-                    WhatsApp *
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    required
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-base"
-                    placeholder="(11) 99999-9999"
-                  />
+              <div>
+                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+                  WhatsApp *
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  required
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                  onBlur={handleBlur}
+                  className={`w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 ${
+                    fieldsTouched.phone && formErrors.phone ? 'border-red-500' : ''
+                  }`}
+                  placeholder="(11) 99999-9999"
+                />
+                {fieldsTouched.phone && formErrors.phone && (
+                  <div className="text-xs text-red-500 mt-1">{formErrors.phone}</div>
+                )}
+              </div>
+
+              {/* Indicador de Progresso */}
+              <div className="bg-gradient-to-r from-purple-50 to-blue-50 p-4 rounded-xl border border-purple-200">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-medium text-gray-700">Progresso do Cadastro</span>
+                  <span className="text-sm font-bold text-purple-600">{calculateProgress()}%</span>
                 </div>
-                <div>
-                  <label htmlFor="experience" className="block text-sm font-medium text-gray-700 mb-2">
-                    Experiência na Consultoria Agrícola *
-                  </label>
-                  <select
-                    id="experience"
-                    name="experience"
-                    required
-                    value={formData.experience}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-base bg-white"
+                <div className="bg-gray-200 h-2 rounded-full overflow-hidden">
+                  <div 
+                    className="bg-gradient-to-r from-purple-500 to-purple-600 h-2 rounded-full transition-all duration-500 ease-out"
+                    style={{ width: `${calculateProgress()}%` }}
+                  ></div>
+                </div>
+                <div className="text-xs text-gray-600 mt-2 flex items-center">
+                  {calculateProgress() === 100 ? (
+                    <>
+                      <svg className="w-4 h-4 text-green-500 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                      {getProgressMessage()}
+                    </>
+                  ) : (
+                    getProgressMessage()
+                  )}
+                </div>
+              </div>
+
+              {/* Botão para Expandir Campos Opcionais */}
+              {!showExpandedForm && (
+                <div className="text-center">
+                  <button
+                    type="button"
+                    onClick={() => setShowExpandedForm(true)}
+                    className="text-purple-600 hover:text-purple-500 font-medium text-sm underline"
                   >
-                    <option value="">Selecione sua experiência</option>
-                    <option value="iniciante">Iniciante (0-2 anos)</option>
-                    <option value="intermediario">Intermediário (3-5 anos)</option>
-                    <option value="experiente">Experiente (6-10 anos)</option>
-                    <option value="veterano">Veterano (10+ anos)</option>
-                  </select>
+                    + Adicionar informações profissionais (opcional)
+                  </button>
                 </div>
-              </div>
+              )}
 
-              <div>
-                <label htmlFor="focus" className="block text-sm font-medium text-gray-700 mb-2">
-                  Principal Área de Atuação
-                </label>
-                <select
-                  id="focus"
-                  name="focus"
-                  value={formData.focus}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-base bg-white"
-                >
-                  <option value="">Selecione a área principal</option>
-                  <option value="agricultura">Agricultura</option>
-                  <option value="pecuaria">Pecuária</option>
-                  <option value="ambas">Agricultura e Pecuária</option>
-                  <option value="agronegocio">Agronegócio Geral</option>
-                  <option value="outro">Outro</option>
-                </select>
-              </div>
+              {/* Campos Expandidos - Opcionais */}
+              {showExpandedForm && (
+                <div className="space-y-6 pt-6 border-t border-gray-200">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-lg font-medium text-gray-900">Informações Profissionais</h3>
+                    <button
+                      type="button"
+                      onClick={() => setShowExpandedForm(false)}
+                      className="text-gray-400 hover:text-gray-600"
+                    >
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                      </svg>
+                    </button>
+                  </div>
 
-              <div>
-                <label htmlFor="state" className="block text-sm font-medium text-gray-700 mb-2">
-                  Estado
-                </label>
-                <select
-                  id="state"
-                  name="state"
-                  value={formData.state}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-base bg-white"
-                >
-                  <option value="">Selecione o estado</option>
-                  <option value="AC">Acre</option>
-                  <option value="AL">Alagoas</option>
-                  <option value="AP">Amapá</option>
-                  <option value="AM">Amazonas</option>
-                  <option value="BA">Bahia</option>
-                  <option value="CE">Ceará</option>
-                  <option value="DF">Distrito Federal</option>
-                  <option value="ES">Espírito Santo</option>
-                  <option value="GO">Goiás</option>
-                  <option value="MA">Maranhão</option>
-                  <option value="MT">Mato Grosso</option>
-                  <option value="MS">Mato Grosso do Sul</option>
-                  <option value="MG">Minas Gerais</option>
-                  <option value="PA">Pará</option>
-                  <option value="PB">Paraíba</option>
-                  <option value="PR">Paraná</option>
-                  <option value="PE">Pernambuco</option>
-                  <option value="PI">Piauí</option>
-                  <option value="RJ">Rio de Janeiro</option>
-                  <option value="RN">Rio Grande do Norte</option>
-                  <option value="RS">Rio Grande do Sul</option>
-                  <option value="RO">Rondônia</option>
-                  <option value="RR">Roraima</option>
-                  <option value="SC">Santa Catarina</option>
-                  <option value="SP">São Paulo</option>
-                  <option value="SE">Sergipe</option>
-                  <option value="TO">Tocantins</option>
-                </select>
-              </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                      <label htmlFor="experience" className="block text-sm font-medium text-gray-700 mb-2">
+                        Anos de Experiência
+                      </label>
+                      <select
+                        id="experience"
+                        name="experience"
+                        value={formData.experience}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
+                      >
+                        <option value="">Selecione</option>
+                        <option value="1-2">1-2 anos</option>
+                        <option value="3-5">3-5 anos</option>
+                        <option value="6-10">6-10 anos</option>
+                        <option value="10+">Mais de 10 anos</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label htmlFor="focus" className="block text-sm font-medium text-gray-700 mb-2">
+                        Área de Foco
+                      </label>
+                      <select
+                        id="focus"
+                        name="focus"
+                        value={formData.focus}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
+                      >
+                        <option value="">Selecione</option>
+                        <option value="grains">Grãos (Soja, Milho, Trigo)</option>
+                        <option value="livestock">Pecuária</option>
+                        <option value="fruits">Fruticultura</option>
+                        <option value="vegetables">Horticultura</option>
+                        <option value="sugar">Cana-de-açúcar</option>
+                        <option value="coffee">Café</option>
+                        <option value="other">Outros</option>
+                      </select>
+                    </div>
+                  </div>
 
+                  <div>
+                    <label htmlFor="state" className="block text-sm font-medium text-gray-700 mb-2">
+                      Estado de Atuação
+                    </label>
+                    <select
+                      id="state"
+                      name="state"
+                      value={formData.state}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
+                    >
+                      <option value="">Selecione seu estado</option>
+                      <option value="AC">Acre</option>
+                      <option value="AL">Alagoas</option>
+                      <option value="AP">Amapá</option>
+                      <option value="AM">Amazonas</option>
+                      <option value="BA">Bahia</option>
+                      <option value="CE">Ceará</option>
+                      <option value="DF">Distrito Federal</option>
+                      <option value="ES">Espírito Santo</option>
+                      <option value="GO">Goiás</option>
+                      <option value="MA">Maranhão</option>
+                      <option value="MT">Mato Grosso</option>
+                      <option value="MS">Mato Grosso do Sul</option>
+                      <option value="MG">Minas Gerais</option>
+                      <option value="PA">Pará</option>
+                      <option value="PB">Paraíba</option>
+                      <option value="PR">Paraná</option>
+                      <option value="PE">Pernambuco</option>
+                      <option value="PI">Piauí</option>
+                      <option value="RJ">Rio de Janeiro</option>
+                      <option value="RN">Rio Grande do Norte</option>
+                      <option value="RS">Rio Grande do Sul</option>
+                      <option value="RO">Rondônia</option>
+                      <option value="RR">Roraima</option>
+                      <option value="SC">Santa Catarina</option>
+                      <option value="SP">São Paulo</option>
+                      <option value="SE">Sergipe</option>
+                      <option value="TO">Tocantins</option>
+                    </select>
+                  </div>
+                </div>
+              )}
+
+              {/* Termos e Condições */}
               <div className="flex items-start">
                 <input
                   id="terms"
@@ -1226,7 +1206,7 @@ export default function Home() {
                 />
                 <label htmlFor="terms" className="ml-3 text-sm text-gray-600">
                   Concordo em receber comunicações sobre o AgroPricing Pro e declaro estar ciente da{' '}
-                  <button
+                  <button 
                     type="button"
                     onClick={() => setShowPrivacyPolicy(true)}
                     className="text-purple-600 hover:text-purple-500 underline"
@@ -1237,14 +1217,32 @@ export default function Home() {
                 </label>
               </div>
 
+              {/* Botão de Envio com Loading */}
               <button
                 type="submit"
-                disabled={isSubmitting}
-                className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 disabled:from-gray-400 disabled:to-gray-500 text-white font-bold py-4 px-8 rounded-xl text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl disabled:transform-none"
+                disabled={isSubmitting || calculateProgress() < 100}
+                className={`w-full font-bold py-4 px-8 rounded-xl text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl disabled:transform-none ${
+                  calculateProgress() === 100 
+                    ? 'bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white' 
+                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                }`}
               >
-                {isSubmitting ? '⏳ Processando...' : '🚀 Garantir Minha Vaga VIP'}
+                {isSubmitting ? (
+                  <div className="flex items-center justify-center">
+                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Processando...
+                  </div>
+                ) : calculateProgress() === 100 ? (
+                  '🚀 Garantir Minha Vaga VIP'
+                ) : (
+                  `Complete o cadastro (${calculateProgress()}%)`
+                )}
               </button>
 
+              {/* Status do Envio */}
               {submitStatus && (
                 <div className={`p-4 rounded-lg text-center ${
                   submitStatus.type === 'success' 
@@ -1256,6 +1254,7 @@ export default function Home() {
               )}
             </form>
 
+            {/* Garantias */}
             <div className="mt-8 text-center">
               <p className="text-sm text-gray-500 mb-4">
                 🔒 Seus dados estão protegidos e não serão compartilhados
@@ -1280,7 +1279,7 @@ export default function Home() {
                 <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center mr-3">
                   <span className="text-white font-bold text-sm sm:text-lg">A</span>
                 </div>
-                <span className="text-xl sm:text-2xl font-bold">AgroPricing Pro</span>
+                <span className="text-xl sm:text-2xl font-bold">AgroPricing</span>
               </div>
               <p className="text-sm sm:text-base text-gray-300 mb-6 max-w-md">
                 A primeira plataforma de IA especializada em precificação para consultores do agronegócio brasileiro.
@@ -1288,7 +1287,7 @@ export default function Home() {
               <div className="flex space-x-4">
                 <a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">
                   <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                    <path d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zm8 7a1 1 0 100-2 1 1 0 000 2z" />
                   </svg>
                 </a>
                 <a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">
@@ -1297,8 +1296,8 @@ export default function Home() {
                   </svg>
                 </a>
                 <a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">
-                  <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zm8 7a1 1 0 100-2 1 1 0 000 2z" />
+                  <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clipRule="evenodd" />
                   </svg>
                 </a>
               </div>
@@ -1308,9 +1307,9 @@ export default function Home() {
             <div>
               <h3 className="text-base sm:text-lg font-semibold mb-4 sm:mb-6">Plataforma</h3>
               <ul className="space-y-2 sm:space-y-3">
-                <li><a href="#features" className="text-sm sm:text-base text-gray-300 hover:text-white transition-colors duration-300">Funcionalidades</a></li>
-                <li><a href="#pricing" className="text-sm sm:text-base text-gray-300 hover:text-white transition-colors duration-300">Preços</a></li>
-                <li><a href="#faq" className="text-sm sm:text-base text-gray-300 hover:text-white transition-colors duration-300">FAQ</a></li>
+                <li><a href="#" className="text-sm sm:text-base text-gray-300 hover:text-white transition-colors duration-300">Funcionalidades</a></li>
+                <li><a href="#" className="text-sm sm:text-base text-gray-300 hover:text-white transition-colors duration-300">Preços</a></li>
+                <li><a href="#" className="text-sm sm:text-base text-gray-300 hover:text-white transition-colors duration-300">FAQ</a></li>
                 <li><a href="#" className="text-sm sm:text-base text-gray-300 hover:text-white transition-colors duration-300">Documentação</a></li>
               </ul>
             </div>
@@ -1321,6 +1320,7 @@ export default function Home() {
               <ul className="space-y-2 sm:space-y-3">
                 <li>
                   <button 
+                    type="button"
                     onClick={() => setShowPrivacyPolicy(true)}
                     className="text-sm sm:text-base text-gray-300 hover:text-white transition-colors duration-300 text-left"
                   >
