@@ -293,65 +293,65 @@ export default function Home() {
       </section>
 
       {/* Problemas Section */}
-      <section id="problems" className="py-16 sm:py-20 bg-gray-50">
+      <section id="problems" className="py-12 sm:py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 sm:mb-8">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-xl sm:text-2xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">
               Os Maiores Desafios dos Consultores Agropecuários
             </h2>
-            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto">
               Você se identifica com alguma dessas situações que prejudicam seu crescimento profissional?
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 sm:gap-12">
+          <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
             {/* Problema 1 */}
-            <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-lg border border-gray-200 hover:shadow-xl transition-all duration-300">
-              <div className="flex items-center mb-4 sm:mb-6">
+            <div className="bg-white p-4 sm:p-6 rounded-2xl shadow-lg border border-gray-200 hover:shadow-xl transition-all duration-300">
+              <div className="flex items-center mb-3 sm:mb-4">
                 <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center mr-3 sm:mr-4 shadow-lg">
                   📊
                 </div>
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 ml-3 sm:ml-4">
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900 ml-3 sm:ml-4">
                   Precificação &ldquo;no Chute&rdquo;
                 </h3>
               </div>
-              <p className="text-base sm:text-lg text-gray-600 mb-4 sm:mb-6 leading-relaxed">
+              <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4 leading-relaxed">
                 Cálculos baseados em intuição, sem considerar variações regionais, sazonalidade ou especificidades das culturas, resultando em preços fora da realidade do mercado.
               </p>
-              <div className="bg-orange-50 p-4 sm:p-6 rounded-xl border-l-4 border-orange-400">
-                <p className="text-sm sm:text-base text-gray-700 italic">
+              <div className="bg-orange-50 p-3 sm:p-4 rounded-xl border-l-4 border-orange-400">
+                <p className="text-xs sm:text-sm text-gray-700 italic">
                   &ldquo;Sempre fico na dúvida se estou cobrando o valor certo. Às vezes perco dinheiro, às vezes perco o cliente por cobrar demais...&rdquo;
                 </p>
               </div>
             </div>
 
             {/* Problema 2 */}
-            <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-lg border border-gray-200 hover:shadow-xl transition-all duration-300">
-              <div className="flex items-center mb-4 sm:mb-6">
+            <div className="bg-white p-4 sm:p-6 rounded-2xl shadow-lg border border-gray-200 hover:shadow-xl transition-all duration-300">
+              <div className="flex items-center mb-3 sm:mb-4">
                 <div className="bg-gradient-to-r from-blue-500 to-purple-500 text-white w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center mr-3 sm:mr-4 shadow-lg">
                   📄
                 </div>
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 ml-3 sm:ml-4">
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900 ml-3 sm:ml-4">
                   Propostas Amadoras
                 </h3>
               </div>
-              <p className="text-base sm:text-lg text-gray-600 mb-4 sm:mb-6 leading-relaxed">
+              <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4 leading-relaxed">
                 Documentos mal estruturados, sem fundamentação técnica, que não conseguem justificar o valor do seu trabalho especializado no agronegócio.
               </p>
-              <div className="bg-blue-50 p-4 sm:p-6 rounded-xl border-l-4 border-blue-400">
-                <p className="text-sm sm:text-base text-gray-700 italic">
+              <div className="bg-blue-50 p-3 sm:p-4 rounded-xl border-l-4 border-blue-400">
+                <p className="text-xs sm:text-sm text-gray-700 italic">
                   &ldquo;Minha proposta parece amadora perto da concorrência. Preciso de algo mais profissional para conquistar produtores maiores...&rdquo;
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="text-center mt-12 sm:mt-16">
-            <div className="bg-gradient-to-r from-purple-600 to-purple-700 text-white py-8 px-6 rounded-2xl shadow-lg">
-              <h3 className="text-xl sm:text-2xl font-bold mb-4">
+          <div className="text-center mt-8 sm:mt-12">
+            <div className="bg-gradient-to-r from-purple-600 to-purple-700 text-white py-6 px-4 sm:px-6 rounded-2xl shadow-lg">
+              <h3 className="text-lg sm:text-xl font-bold mb-3">
                 O Resultado? Oportunidades Perdidas
               </h3>
-              <p className="text-base sm:text-lg opacity-90">
+              <p className="text-sm sm:text-base opacity-90">
                 Enquanto você luta com esses desafios, consultores mais preparados conquistam os melhores clientes e projetos do agronegócio
               </p>
             </div>
