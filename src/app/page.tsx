@@ -359,183 +359,135 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Seção Como Funciona - Versão Consolidada e Melhorada */}
-      <section id="demo" className="py-16 sm:py-24 bg-gradient-to-br from-purple-50 to-blue-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
+      {/* Seção Como Funciona - Versão Otimizada e Mobile-First */}
+      <section id="demo" className="py-10 sm:py-12 bg-gradient-to-br from-purple-50 to-blue-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-3 sm:mb-4">
               Veja Como Funciona
             </h2>
-            <p className="text-lg sm:text-xl text-gray-600 mb-8">
-              Em apenas 3 etapas simples, nossa IA especializada transforma sua descrição em uma proposta profissional completa
+            <p className="text-base sm:text-lg text-gray-600 mb-4 sm:mb-6">
+              Em apenas **2 etapas simples**, nossa IA especializada transforma sua descrição em uma proposta profissional completa
             </p>
-            <div className="inline-flex items-center bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-medium">
+            <div className="inline-flex items-center bg-green-100 text-green-800 px-3 py-2 rounded-full text-sm font-medium">
               ⚡ Gerado em menos de 3 segundos
             </div>
           </div>
 
-          {/* Demonstração Visual Lado a Lado */}
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 mb-16">
-            {/* Input do Usuário */}
-            <div className="space-y-6">
-              <div className="text-center lg:text-left">
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">
-                  1. Você Descreve Seu Projeto
+          {/* Demonstração Visual Simplificada */}
+          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            {/* Etapa 1: Input */}
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-lg border border-purple-200">
+              <div className="text-center mb-4">
+                <div className="inline-flex items-center justify-center w-8 h-8 bg-purple-100 text-purple-600 rounded-full text-sm font-bold mb-2">
+                  1
+                </div>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">
+                  Você Descreve
                 </h3>
-                <p className="text-gray-600 mb-6">
-                  Digite naturalmente o que seu cliente precisa. Nossa IA entende o contexto automaticamente.
+                <p className="text-sm text-gray-600">
+                  Digite naturalmente o que seu cliente precisa
                 </p>
               </div>
               
-              <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-purple-200">
-                <div className="flex items-center mb-4">
-                  <div className="w-3 h-3 bg-red-500 rounded-full mr-2"></div>
-                  <div className="w-3 h-3 bg-yellow-500 rounded-full mr-2"></div>
-                  <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
-                  <span className="text-sm text-gray-500 ml-2">Input do Cliente</span>
-                </div>
+              <div className="bg-gray-50 rounded-lg p-3 border-2 border-dashed border-gray-300">
                 <div className="text-sm text-gray-700 leading-relaxed">
-                  &quot;Preciso de uma consultoria para otimizar a produtividade da minha fazenda de soja no Mato Grosso. 
-                  São 500 hectares e quero implementar agricultura de precisão para aumentar o lucro por hectare.&quot;
+                  "Consultoria para fazenda de soja, 500ha no MT, agricultura de precisão..."
                 </div>
-                <div className="mt-4 pt-4 border-t border-gray-200">
-                  <div className="text-xs text-gray-500 mb-2">IA detecta automaticamente:</div>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="bg-purple-100 text-purple-700 px-2 py-1 rounded-full text-xs">🌾 Cultura: Soja</span>
-                    <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-xs">📍 Local: MT</span>
-                    <span className="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs">📊 Foco: Produtividade</span>
-                    <span className="bg-orange-100 text-orange-700 px-2 py-1 rounded-full text-xs">⚙️ Tech: Precisão</span>
-                  </div>
+                <div className="mt-3 flex flex-wrap gap-1">
+                  <span className="bg-purple-100 text-purple-700 px-2 py-1 rounded text-xs">🌾 Soja</span>
+                  <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs">📍 MT</span>
+                  <span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs">⚙️ Precisão</span>
                 </div>
               </div>
             </div>
 
-            {/* Output da IA */}
-            <div className="space-y-6">
-              <div className="text-center lg:text-left">
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">
-                  2. IA Gera Proposta Completa
+            {/* Etapa 2: Output */}
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-xl border border-gray-200">
+              <div className="text-center mb-4">
+                <div className="inline-flex items-center justify-center w-8 h-8 bg-green-100 text-green-600 rounded-full text-sm font-bold mb-2">
+                  2
+                </div>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">
+                  IA Gera Proposta
                 </h3>
-                <p className="text-gray-600 mb-6">
-                  Proposta profissional com precificação regionalizada, cronograma e análise de ROI automática.
+                <p className="text-sm text-gray-600">
+                  Proposta profissional completa e precificada
                 </p>
               </div>
 
-              <div className="bg-white rounded-2xl shadow-xl p-6 border border-gray-200">
-                <div className="border-b border-gray-200 pb-4 mb-4">
-                  <div className="flex items-center justify-between">
-                    <h4 className="font-bold text-lg text-gray-900">Proposta Comercial</h4>
-                    <span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-medium">GERADO AUTOMATICAMENTE</span>
+              <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-3">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-semibold text-gray-900">📋 Proposta Técnica</span>
+                  <span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-medium">GERADA</span>
+                </div>
+                
+                <div className="space-y-2 text-xs text-gray-600">
+                  <div className="flex justify-between">
+                    <span>• Análise solo (500ha)</span>
+                    <span className="font-medium">✓</span>
                   </div>
-                  <p className="text-sm text-gray-500 mt-1">Consultoria em Agricultura de Precisão - Soja MT</p>
+                  <div className="flex justify-between">
+                    <span>• Mapeamento produtividade</span>
+                    <span className="font-medium">✓</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>• Taxa variável</span>
+                    <span className="font-medium">✓</span>
+                  </div>
                 </div>
 
-                <div className="space-y-4 text-sm">
-                  <div>
-                    <h5 className="font-semibold text-gray-900 mb-2">📋 Escopo de Trabalho</h5>
-                    <ul className="text-gray-600 space-y-1 text-xs">
-                      <li>• Análise de solo georeferenciada (500ha)</li>
-                      <li>• Mapeamento de produtividade histórica</li>
-                      <li>• Implementação de taxa variável</li>
-                      <li>• Monitoramento safra 2024/25</li>
-                    </ul>
-                  </div>
-
-                  <div className="bg-gray-50 p-3 rounded-lg">
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="font-semibold text-gray-900">💰 Investimento</span>
-                      <span className="text-lg font-bold text-purple-600">R$ 29.700</span>
-                    </div>
-                    <div className="text-xs text-gray-600">
-                      180h × R$ 165/h (valor regionalizado MT)
-                    </div>
-                  </div>
-
-                  <div className="bg-green-50 p-3 rounded-lg">
-                    <div className="flex justify-between items-center mb-1">
-                      <span className="font-semibold text-green-800">📈 ROI Estimado</span>
-                      <span className="text-lg font-bold text-green-600">506%</span>
-                    </div>
-                    <div className="text-xs text-green-600">
-                      Payback: 2,1 meses | Retorno: R$ 150.000/ano
-                    </div>
-                  </div>
-
-                  <div>
-                    <h5 className="font-semibold text-gray-900 mb-2">⏱️ Cronograma</h5>
-                    <div className="text-xs text-gray-600 space-y-1">
-                      <div>Fase 1 (30 dias): Análise e diagnóstico</div>
-                      <div>Fase 2 (60 dias): Implementação</div>
-                      <div>Fase 3 (90 dias): Monitoramento</div>
-                    </div>
-                  </div>
+                <div className="mt-3 pt-3 border-t border-gray-200 flex justify-between items-center">
+                  <span className="text-sm font-semibold text-gray-900">💰 Investimento:</span>
+                  <span className="text-lg font-bold text-purple-600">R$ 29.700</span>
+                </div>
+                
+                <div className="mt-2 flex justify-between items-center">
+                  <span className="text-sm font-semibold text-green-800">📈 ROI:</span>
+                  <span className="text-lg font-bold text-green-600">506%</span>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Benefícios Quantificados */}
-          <div className="bg-white rounded-2xl p-8 shadow-lg">
-            <h3 className="text-2xl font-bold text-center text-gray-900 mb-8">
-              Resultados Comprovados
-            </h3>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-purple-600 mb-2">112x</div>
-                <div className="text-sm text-gray-600">Mais rápido que planilhas</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-blue-600 mb-2">15h</div>
-                <div className="text-sm text-gray-600">Economizadas por mês</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-green-600 mb-2">40%</div>
-                <div className="text-sm text-gray-600">Taxa de conversão</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-orange-600 mb-2">27</div>
-                <div className="text-sm text-gray-600">Estados cobertos</div>
-              </div>
-            </div>
-          </div>
-
-          <div className="text-center mt-12">
-            <button
-              onClick={() => scrollToSection('waitlist')}
-              className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-bold py-4 px-8 rounded-xl text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
-            >
-              Quero Testar Gratuitamente
-            </button>
-            <p className="text-sm text-gray-500 mt-3">
-              Sem cartão de crédito • Teste por 7 dias grátis
+          {/* Call-to-Action para próxima seção */}
+          <div className="text-center mt-8 sm:mt-10">
+            <p className="text-sm text-gray-600 mb-3">
+              Veja exemplos reais de propostas geradas pela nossa IA
             </p>
+            <div className="inline-flex items-center text-purple-600 font-medium text-sm">
+              Explore mais abaixo
+              <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Demonstração Section */}
-      <section className="py-12 sm:py-20 bg-gray-50">
+      <section className="py-8 sm:py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12 sm:mb-16">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">
+          <div className="text-center mb-8 sm:mb-10">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-4 sm:mb-6">
               AgroPricing: Profissionalismo + Precisão
             </h2>
-            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto">
               A única solução que te transforma no profissional mais respeitado E mais assertivo do agronegócio brasileiro
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 items-center">
             {/* Antes vs Depois */}
             <div>
-              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6 sm:mb-8">
+              <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4 sm:mb-6">
                 Transformação Completa
               </h3>
               
               {/* ANTES */}
-              <div className="bg-red-50 p-4 sm:p-6 rounded-xl border-l-4 border-red-500 mb-6">
+              <div className="bg-red-50 p-4 sm:p-6 rounded-xl border-l-4 border-red-500 mb-4 sm:mb-6">
                 <h4 className="font-bold text-red-600 mb-3 flex items-center">
-                  <span className="text-lg sm:text-xl mr-2">❌</span>
+                  <span className="text-base sm:text-lg mr-2">❌</span>
                   ANTES (Profissional Comum)
                 </h4>
                 <ul className="space-y-2 text-sm sm:text-base text-gray-700">
@@ -550,7 +502,7 @@ export default function Home() {
               {/* DEPOIS */}
               <div className="bg-green-50 p-4 sm:p-6 rounded-xl border-l-4 border-green-500">
                 <h4 className="font-bold text-green-600 mb-3 flex items-center">
-                  <span className="text-lg sm:text-xl mr-2">✅</span>
+                  <span className="text-base sm:text-lg mr-2">✅</span>
                   DEPOIS (Especialista Referência)
                 </h4>
                 <ul className="space-y-2 text-sm sm:text-base text-gray-700">
@@ -562,45 +514,45 @@ export default function Home() {
                 </ul>
               </div>
 
-              <div className="mt-6 sm:mt-8 p-4 bg-purple-50 rounded-xl">
-                <p className="text-center font-bold text-purple-600 text-base sm:text-lg">
+              <div className="mt-4 sm:mt-6 p-3 sm:p-4 bg-purple-50 rounded-xl">
+                <p className="text-center font-bold text-purple-600 text-sm sm:text-base">
                   Resultado: <span className="text-gray-900">Mais Respeito + Mais Lucro</span>
                 </p>
               </div>
             </div>
 
             {/* Demonstração Visual */}
-            <div className="bg-white p-6 sm:p-8 rounded-xl shadow-lg">
-              <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4 sm:mb-6">
+            <div className="bg-white p-4 sm:p-6 rounded-xl shadow-lg">
+              <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4">
                 Exemplo Prático: Prestação de Serviços Agropecuários
               </h3>
               
-              <div className="space-y-4 sm:space-y-6">
-                <div className="border-l-4 border-blue-500 pl-4">
+              <div className="space-y-3 sm:space-y-4">
+                <div className="border-l-4 border-blue-500 pl-3 sm:pl-4">
                   <p className="font-semibold text-gray-900 text-sm sm:text-base">Serviço:</p>
                   <p className="text-gray-600 text-sm sm:text-base">Consultoria técnica especializada para propriedade rural de 500ha no interior de Goiás</p>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <div className="bg-red-50 p-3 sm:p-4 rounded-lg">
-                    <p className="font-semibold text-red-600 text-xs sm:text-sm">Método Antigo</p>
+                    <p className="font-semibold text-red-600 text-sm">Método Antigo</p>
                     <p className="text-lg sm:text-xl font-bold text-gray-900">R$ 8.500</p>
-                    <p className="text-xs sm:text-sm text-gray-600">&ldquo;Calculei de cabeça&rdquo;</p>
+                    <p className="text-sm text-gray-600">&ldquo;Calculei de cabeça&rdquo;</p>
                   </div>
                   <div className="bg-green-50 p-3 sm:p-4 rounded-lg">
-                    <p className="font-semibold text-green-600 text-xs sm:text-sm">Com AgroPricing</p>
-                    <p className="text-lg sm:text-xl font-bold text-gray-900">R$ 12.800</p>
-                    <p className="text-xs sm:text-sm text-gray-600">Baseado em dados regionais</p>
+                    <p className="font-semibold text-green-600 text-sm">Com AgroPricing</p>
+                    <p className="text-lg sm:text-xl font-bold text-gray-900">R$ 12.800*</p>
+                    <p className="text-sm text-gray-600">*Projeção com metodologia</p>
                   </div>
                 </div>
 
-                <div className="bg-yellow-50 p-3 sm:p-4 rounded-lg">
-                  <p className="font-bold text-yellow-700 text-center text-sm sm:text-base">
-                    Diferença: <span className="text-green-600">+R$ 4.300 (50% mais lucro)</span>
+                <div className="bg-gradient-to-r from-green-50 to-green-100 p-3 sm:p-4 rounded-lg border border-green-200">
+                  <p className="font-bold text-green-700 text-center text-sm sm:text-base">
+                    💰 Diferença Projetada: <span className="text-green-600">+R$ 4.300 (50% mais lucro)</span>
                   </p>
                 </div>
 
-                <div className="text-center pt-2">
+                <div className="text-center pt-1 sm:pt-2">
                   <p className="text-xs sm:text-sm text-gray-600 italic">
                     + Proposta profissional que impressiona o cliente
                   </p>
