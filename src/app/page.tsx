@@ -190,7 +190,7 @@ export default function Home() {
       
       setSubmitStatus({
         type: 'success',
-        message: ' Parabéns! Você foi adicionado à lista VIP com 50% de desconto!'
+        message: 'Parabéns! Você foi adicionado ao Acesso Antecipado com 50% de desconto!'
       });
       
       // Reset form
@@ -218,7 +218,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4 sm:py-6">
             <div className="flex items-center">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-purple-600 to-purple-700 rounded-xl flex items-center justify-center mr-3 sm:mr-4 shadow-lg">
+              <div className="w-11 h-11 sm:w-12 sm:h-12 bg-gradient-to-r from-purple-600 to-purple-700 rounded-xl flex items-center justify-center mr-3 sm:mr-4 shadow-lg">
                 <svg className="w-6 h-6 sm:w-7 sm:h-7 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/>
                 </svg>
@@ -228,68 +228,65 @@ export default function Home() {
             </div>
             <button 
               onClick={() => document.getElementById('waitlist-form')?.scrollIntoView({ behavior: 'smooth' })}
-              className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl text-sm sm:text-base"
+              className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white px-3 py-1.5 sm:px-6 sm:py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl text-xs sm:text-base"
             >
-              Lista VIP 50% OFF
+              Lista 50% OFF
             </button>
           </div>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section id="hero" className="bg-gradient-to-br from-purple-50 to-purple-100 py-12 sm:py-16 lg:py-24">
+      <section id="hero" className="bg-gradient-to-br from-purple-50 to-purple-100 py-8 sm:py-12 lg:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <div className="flex justify-center mb-6 sm:mb-8">
-              <span className="bg-gradient-to-r from-purple-600 to-purple-700 text-white px-4 py-2 rounded-full text-sm font-medium">
-                Lançamento Oficial - Lista VIP Aberta
-              </span>
-            </div>
-            
-            <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-gray-900 mb-6 sm:mb-8 leading-tight">
-              Pare de Perder <span className="text-purple-600">Clientes e Dinheiro</span><br className="hidden sm:block" />
+            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight">
+              Pare de Perder <span className="text-purple-600">Clientes e Dinheiro</span><br className="block" />
               com Propostas Amadoras no Agronegócio
             </h1>
             
-            <p className="text-lg sm:text-xl lg:text-2xl text-gray-600 mb-8 sm:mb-10 max-w-4xl mx-auto leading-relaxed">
-              Gere propostas técnicas profissionais e precifique seus serviços com base em dados reais do agronegócio brasileiro - 
+            <p className="text-base sm:text-lg lg:text-xl text-gray-600 mb-6 sm:mb-8 max-w-4xl mx-auto leading-relaxed">
+              Gere propostas técnicas profissionais e precifique seus serviços com <strong>Inteligência Artificial</strong> e dados reais do agronegócio brasileiro - 
               <strong>sem mais cálculos &ldquo;no chute&rdquo;</strong>
             </p>
 
             {/* Benefícios Principais */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-10 sm:mb-12">
-              <div className="flex flex-col items-center p-4 sm:p-6 bg-white/60 backdrop-blur-sm rounded-2xl">
-                <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-purple-600 mb-2">112x</div>
-                <div className="text-sm sm:text-base text-gray-700 text-center">Mais rápido que precificação manual</div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 lg:gap-6 mb-8 sm:mb-10">
+              <div className="flex flex-col items-center p-3 sm:p-4 bg-white/60 backdrop-blur-sm rounded-2xl">
+                <div className="text-xl sm:text-2xl font-bold text-purple-600 mb-2">🎯</div>
+                <div className="text-sm sm:text-base text-gray-700 text-center font-medium">Precificação Assertiva</div>
+                <div className="text-xs sm:text-sm text-gray-600 text-center mt-1">Com dados regionalizados</div>
               </div>
-              <div className="flex flex-col items-center p-4 sm:p-6 bg-white/60 backdrop-blur-sm rounded-2xl">
-                <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-purple-600 mb-2">15h</div>
-                <div className="text-sm sm:text-base text-gray-700 text-center">Economizadas por mês</div>
+              <div className="flex flex-col items-center p-3 sm:p-4 bg-white/60 backdrop-blur-sm rounded-2xl">
+                <div className="text-xl sm:text-2xl font-bold text-purple-600 mb-2">🚀</div>
+                <div className="text-sm sm:text-base text-gray-700 text-center font-medium">Propostas Profissionais</div>
+                <div className="text-xs sm:text-sm text-gray-600 text-center mt-1">Geradas com IA</div>
               </div>
-              <div className="flex flex-col items-center p-4 sm:p-6 bg-white/60 backdrop-blur-sm rounded-2xl">
-                <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-purple-600 mb-2">40%</div>
-                <div className="text-sm sm:text-base text-gray-700 text-center">Mais conversões</div>
+              <div className="flex flex-col items-center p-3 sm:p-4 bg-white/60 backdrop-blur-sm rounded-2xl">
+                <div className="text-xl sm:text-2xl font-bold text-purple-600 mb-2">⏱️</div>
+                <div className="text-sm sm:text-base text-gray-700 text-center font-medium">Economia de Tempo</div>
+                <div className="text-xs sm:text-sm text-gray-600 text-center mt-1">Foco no que importa</div>
               </div>
             </div>
 
             {/* CTAs Principais */}
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center mb-8 sm:mb-10">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center mb-6 sm:mb-8">
               <button 
                 onClick={() => scrollToWaitlist()}
-                className="w-full sm:w-auto bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-bold py-4 px-6 sm:px-8 rounded-xl text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                className="w-11/12 max-w-sm sm:w-auto bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-bold py-3 px-5 sm:px-8 sm:py-4 rounded-xl text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
               >
                 Quero Propostas Profissionais →
               </button>
               <button 
                 onClick={() => document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' })}
-                className="text-purple-600 hover:text-purple-700 font-semibold text-lg underline transition-colors duration-300"
+                className="text-purple-600 hover:text-purple-700 font-semibold text-base sm:text-lg underline transition-colors duration-300"
               >
                 Ver Demonstração
               </button>
             </div>
 
             <p className="text-sm sm:text-base text-gray-500">
-              Teste grátis por 7 dias • Cancele quando quiser • Suporte especializado
+              Cadastre-se gratuitamente • Seja notificado do lançamento • Garanta desconto exclusivo
             </p>
           </div>
         </div>
