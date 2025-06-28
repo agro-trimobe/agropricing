@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useGTM } from '@/hooks/useGTM';
 
 export default function Home() {
   const [subscriberCount] = useState(47);
@@ -188,32 +189,88 @@ export default function Home() {
     return () => clearInterval(timer);
   }, [subscriberCount]);
 
-  // Handle form submission
+  // Hook GTM para tracking
+  const { trackFormEvent } = useGTM();
+
+  // Handle form submission - INTEGRADO COM BREVO + GTM TRACKING
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus(null);
 
+    // Tracking GTM - Form Start
+    trackFormEvent('start', {
+      form_name: 'lista_espera',
+      form_location: 'hero_section',
+      form_fields: ['name', 'email', 'phone']
+    });
+
     try {
-      // Simular envio (implementar API real depois)
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      setSubmitStatus({
-        type: 'success',
-        message: 'Parabéns! Você foi adicionado ao Acesso Antecipado com 50% de desconto!'
+      // Enviar para API Brevo
+      const response = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          source: 'Landing Page AgroPricing - Hero Section'
+        }),
       });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        // ✅ SUCESSO - Contato adicionado à Brevo
+        setSubmitStatus({
+          type: 'success',
+          message: result.message || 'Parabéns! Você foi adicionado à Lista de Espera com 50% de desconto!'
+        });
+
+        // Tracking GTM - Form Success
+        trackFormEvent('success', {
+          form_name: 'lista_espera',
+          form_location: 'hero_section',
+          form_fields: ['name', 'email', 'phone']
+        }, {
+          conversion_value: 125, // Valor do plano com desconto
+          lead_source: 'organic',
+          user_segment: 'agronegocio'
+        });
+
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          phone: ''
+        });
+        
+      } else {
+        // ❌ ERRO DA API
+        throw new Error(result.error || 'Erro na submissão');
+      }
       
-      // Reset form
-      setFormData({
-        name: '',
-        email: '',
-        phone: ''
-      });
+    } catch (error: unknown) {
+      console.error('Erro ao enviar formulário:', error);
       
-    } catch {
       setSubmitStatus({
         type: 'error',
-        message: 'Erro ao processar sua inscrição. Tente novamente.'
+        message: (error instanceof Error && error.message?.includes('inválido')) 
+          ? error.message 
+          : 'Erro ao processar sua inscrição. Verifique os dados e tente novamente.'
+      });
+
+      // Tracking GTM - Form Error
+      trackFormEvent('error', {
+        form_name: 'lista_espera',
+        form_location: 'hero_section',
+        form_fields: ['name', 'email', 'phone'],
+        validation_errors: [error instanceof Error ? error.message : 'unknown_error']
+      }, {
+        error_type: 'api_error',
+        error_message: error instanceof Error ? error.message : String(error)
       });
     } finally {
       setIsSubmitting(false);
