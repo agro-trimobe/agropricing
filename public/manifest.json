@@ -1,0 +1,52 @@
+{
+  "name": "AgroPricing - Consultoria Agropecuária com IA",
+  "short_name": "AgroPricing",
+  "description": "Plataforma de IA para consultores do agronegócio brasileiro com precificação inteligente e propostas profissionais",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#7c3aed",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "72x72 96x96 128x128 144x144 152x152 192x192 384x384 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity", "utilities"],
+  "screenshots": [
+    {
+      "src": "/og-image.jpg",
+      "sizes": "1200x630",
+      "type": "image/jpeg",
+      "platform": "wide",
+      "label": "AgroPricing - Tela Principal"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Lista VIP",
+      "short_name": "Lista VIP",
+      "description": "Cadastre-se na lista VIP com 50% OFF",
+      "url": "/#waitlist",
+      "icons": [
+        {
+          "src": "/favicon.svg",
+          "sizes": "192x192",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ]
+}

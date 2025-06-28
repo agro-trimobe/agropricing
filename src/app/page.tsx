@@ -15,6 +15,9 @@ export default function Home() {
     email: '',
     phone: ''
   });
+
+  // Estados FAQ Accordion
+  const [openFAQs, setOpenFAQs] = useState<number[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{type: 'success' | 'error', message: string} | null>(null);
 
@@ -111,9 +114,17 @@ export default function Home() {
   };
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+    const { name } = e.target;
     setFieldsTouched(prev => ({ ...prev, [name]: true }));
-    handleFieldValidation(name, value);
+  };
+
+  // Função para toggle FAQ
+  const toggleFAQ = (index: number) => {
+    setOpenFAQs(prev => 
+      prev.includes(index) 
+        ? prev.filter(i => i !== index)
+        : [...prev, index]
+    );
   };
 
   useEffect(() => {
@@ -217,7 +228,16 @@ export default function Home() {
           <div className="flex justify-between items-center py-4 sm:py-6">
             <div className="flex items-center">
               <div className="w-11 h-11 sm:w-12 sm:h-12 bg-gradient-to-r from-purple-600 to-purple-700 rounded-xl flex items-center justify-center mr-3 sm:mr-4 shadow-lg">
-                <svg className="w-6 h-6 sm:w-7 sm:h-7 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
+                <svg 
+                  className="w-6 h-6 sm:w-7 sm:h-7 text-white" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2" 
+                  viewBox="0 0 24 24" 
+                  role="img"
+                  aria-label="Logo do AgroPricing - Plataforma de IA para consultoria agropecuária brasileira"
+                >
+                  <title>AgroPricing - Precificação Inteligente para Agronegócio</title>
                   <path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z" fill="currentColor" stroke="none"/>
                   <circle cx="7" cy="7" r="1.5" fill="white"/>
                 </svg>
@@ -816,77 +836,80 @@ export default function Home() {
           </div>
 
           <div className="space-y-4 sm:space-y-6">
-            {/* FAQ 1 */}
-            <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 px-2 sm:px-0">
-              <div className="p-3 sm:p-6">
-                <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-2.5 sm:mb-4 leading-tight">
-                  Como a IA garante preços assertivos para minha área de atuação no agronegócio?
-                </h3>
-                <p className="text-xs sm:text-base text-gray-600 leading-relaxed px-1 sm:px-0">
-                  Nossa IA foi treinada especificamente com dados do agronegócio brasileiro, considerando especificidades regionais, sazonalidade e características únicas do setor. Cada preço é calculado com base em dados reais, eliminando o &lsquo;chute&rsquo; e dando embasamento técnico para suas cobranças.
-                </p>
-              </div>
-            </div>
-
-            {/* FAQ 2 */}
-            <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 px-2 sm:px-0">
-              <div className="p-3 sm:p-6">
-                <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-2.5 sm:mb-4 leading-tight">
-                  As propostas realmente vão me fazer parecer mais profissional?
-                </h3>
-                <p className="text-xs sm:text-base text-gray-600 leading-relaxed px-1 sm:px-0">
-                  Absolutamente! Nossas propostas incluem análises técnicas detalhadas, justificativas embasadas, cálculos regionalizados e apresentação visual impecável. Seus clientes vão perceber imediatamente o aumento no seu nível de profissionalismo.
-                </p>
-              </div>
-            </div>
-
-            {/* FAQ 3 */}
-            <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 px-2 sm:px-0">
-              <div className="p-3 sm:p-6">
-                <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-2.5 sm:mb-4 leading-tight">
-                  A ferramenta funciona para todos os tipos de serviços agropecuários?
-                </h3>
-                <p className="text-xs sm:text-base text-gray-600 leading-relaxed px-1 sm:px-0">
-                  Sim! O AgroPricing é desenvolvido para atender todo o espectro de prestadores de serviços do agronegócio brasileiro, considerando as particularidades e complexidades específicas do setor, independente da sua área de especialização.
-                </p>
-              </div>
-            </div>
-
-            {/* FAQ 4 */}
-            <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 px-2 sm:px-0">
-              <div className="p-3 sm:p-6">
-                <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-2.5 sm:mb-4 leading-tight">
-                  Como posso ter certeza de que não vou mais errar nos preços?
-                </h3>
-                <p className="text-xs sm:text-base text-gray-600 leading-relaxed px-1 sm:px-0">
-                  A IA utiliza dados regionais precisos, considera fatores específicos do agronegócio e oferece cálculos automatizados. Você terá justificativa técnica para cada valor, eliminando a insegurança e o medo de precificar incorretamente.
-                </p>
-              </div>
-            </div>
-
-            {/* FAQ 5 */}
-            <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 px-2 sm:px-0">
-              <div className="p-3 sm:p-6">
-                <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-2.5 sm:mb-4 leading-tight">
-                  E se meus clientes questionarem os valores mais altos?
-                </h3>
-                <p className="text-xs sm:text-base text-gray-600 leading-relaxed px-1 sm:px-0">
-                  Com o AgroPricing, você terá embasamento técnico completo para justificar seus preços. As propostas incluem análises detalhadas que demonstram o valor do seu trabalho especializado no agronegócio.
-                </p>
-              </div>
-            </div>
-
-            {/* FAQ 6 */}
-            <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 px-2 sm:px-0">
-              <div className="p-3 sm:p-6">
-                <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-2.5 sm:mb-4 leading-tight">
-                  Quanto tempo leva para ver resultados na minha credibilidade?
-                </h3>
-                <p className="text-xs sm:text-base text-gray-600 leading-relaxed px-1 sm:px-0">
-                  A transformação é imediata! Na primeira proposta gerada, seus clientes já percebem o aumento de profissionalismo. Em 30 dias, você estará estabelecido como referência técnica na sua região.
-                </p>
-              </div>
-            </div>
+            {[
+              {
+                question: "Como a IA garante preços assertivos para minha área de atuação no agronegócio?",
+                answer: "Nossa IA foi treinada especificamente com dados do agronegócio brasileiro, considerando especificidades regionais, sazonalidade e características únicas do setor. Cada preço é calculado com base em dados reais, eliminando o 'chute' e dando embasamento técnico para suas cobranças."
+              },
+              {
+                question: "As propostas realmente vão me fazer parecer mais profissional?",
+                answer: "Absolutamente! Nossas propostas incluem análises técnicas detalhadas, justificativas embasadas, cálculos regionalizados e apresentação visual impecável. Seus clientes vão perceber imediatamente o aumento no seu nível de profissionalismo."
+              },
+              {
+                question: "A ferramenta funciona para todos os tipos de serviços agropecuários?",
+                answer: "Sim! O AgroPricing é desenvolvido para atender todo o espectro de prestadores de serviços do agronegócio brasileiro, considerando as particularidades e complexidades específicas do setor, independente da sua área de especialização."
+              },
+              {
+                question: "Como posso ter certeza de que não vou mais errar nos preços?",
+                answer: "A IA utiliza dados regionais precisos, considera fatores específicos do agronegócio e oferece cálculos automatizados. Você terá justificativa técnica para cada valor, eliminando a insegurança e o medo de precificar incorretamente."
+              },
+              {
+                question: "E se meus clientes questionarem os valores mais altos?",
+                answer: "Com o AgroPricing, você terá embasamento técnico completo para justificar seus preços. As propostas incluem análises detalhadas que demonstram o valor do seu trabalho especializado no agronegócio."
+              },
+              {
+                question: "Quanto tempo leva para ver resultados na minha credibilidade?",
+                answer: "A transformação é imediata! Na primeira proposta gerada, seus clientes já percebem o aumento de profissionalismo. Em 30 dias, você estará estabelecido como referência técnica na sua região."
+              }
+            ].map((faq, index) => {
+              const isOpen = openFAQs.includes(index);
+              return (
+                <div key={index} className="bg-white rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 px-2 sm:px-0">
+                  <button
+                    onClick={() => toggleFAQ(index)}
+                    className="w-full text-left p-3 sm:p-6 flex items-start justify-between gap-3 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 rounded-xl sm:rounded-2xl"
+                    aria-expanded={isOpen}
+                    aria-controls={`faq-answer-${index}`}
+                  >
+                    <div className="flex-1">
+                      <h3 className="text-base sm:text-lg font-bold text-gray-900 leading-tight pr-2">
+                        {faq.question}
+                      </h3>
+                    </div>
+                    <div className="flex-shrink-0 ml-2">
+                      <div className={`w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center rounded-full border-2 transition-all duration-300 ${
+                        isOpen 
+                          ? 'border-purple-500 bg-purple-50 text-purple-600 rotate-180' 
+                          : 'border-gray-300 bg-gray-50 text-gray-400 hover:border-purple-300 hover:bg-purple-50 hover:text-purple-500'
+                      }`}>
+                        <svg 
+                          className="w-3 h-3 sm:w-4 sm:h-4 transition-transform duration-300" 
+                          fill="none" 
+                          stroke="currentColor" 
+                          viewBox="0 0 24 24"
+                          aria-hidden="true"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </div>
+                    </div>
+                  </button>
+                  
+                  <div 
+                    id={`faq-answer-${index}`}
+                    className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                      isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                    }`}
+                  >
+                    <div className="px-3 sm:px-6 pb-3 sm:pb-6 pt-0">
+                      <p className="text-xs sm:text-base text-gray-600 leading-relaxed px-1 sm:px-0">
+                        {faq.answer}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
 
 

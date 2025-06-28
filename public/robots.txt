@@ -1,8 +1,65 @@
+# Robots.txt para AgroPricing - Consultoria Agropecuária com IA
+# Otimizado para indexação e SEO
+
+# Permitir todos os crawlers principais
 User-agent: *
 Allow: /
 
-# Host
-Host: https://agropricing.com.br
+# Crawlers específicos - configuração otimizada
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
 
-# Sitemaps
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 1
+
+User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Baiduspider
+Allow: /
+Crawl-delay: 2
+
+User-agent: YandexBot
+Allow: /
+Crawl-delay: 2
+
+# Crawlers de redes sociais
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+# Bloquear crawlers indesejados
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+# Configurações do site
+Host: https://agropricing.com.br
 Sitemap: https://agropricing.com.br/sitemap.xml
+
+# Cache e crawl patterns
+# Request-rate: 1/10s
+# Visit-time: 0400-0800

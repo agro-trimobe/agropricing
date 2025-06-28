@@ -1,18 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd
+        http://www.google.com/schemas/sitemap-image/1.1
+        http://www.google.com/schemas/sitemap-image/1.1/sitemap-image.xsd">
   <url>
     <loc>https://agropricing.com.br/</loc>
-    <lastmod>2024-12-25</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2024-12-25T10:00:00+00:00</lastmod>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://agropricing.com.br/og-image.jpg</image:loc>
+      <image:title>AgroPricing - Plataforma de IA para Consultoria Agropecuária</image:title>
+      <image:caption>Precificação inteligente e propostas profissionais para consultores do agronegócio brasileiro</image:caption>
+      <image:geo_location>Brasil</image:geo_location>
+      <image:license>https://agropricing.com.br/politica-de-privacidade</image:license>
+    </image:image>
   </url>
   <url>
     <loc>https://agropricing.com.br/politica-de-privacidade</loc>
-    <lastmod>2024-12-25</lastmod>
+    <lastmod>2024-12-25T10:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://agropricing.com.br/termos-de-uso</loc>
+    <lastmod>2024-12-25T10:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
   </url>
 </urlset>
