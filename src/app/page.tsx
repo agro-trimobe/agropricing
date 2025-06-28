@@ -17,7 +17,7 @@ export default function Home() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{type: 'success' | 'error', message: string} | null>(null);
-  const [showExpandedForm, setShowExpandedForm] = useState(false);
+
   const [formErrors, setFormErrors] = useState<{[key: string]: string}>({});
   const [fieldsTouched, setFieldsTouched] = useState<{[key: string]: boolean}>({});
   const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
@@ -217,15 +217,15 @@ export default function Home() {
           <div className="flex justify-between items-center py-4 sm:py-6">
             <div className="flex items-center">
               <div className="w-11 h-11 sm:w-12 sm:h-12 bg-gradient-to-r from-purple-600 to-purple-700 rounded-xl flex items-center justify-center mr-3 sm:mr-4 shadow-lg">
-                <svg className="w-6 h-6 sm:w-7 sm:h-7 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/>
+                <svg className="w-6 h-6 sm:w-7 sm:h-7 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z" fill="currentColor" stroke="none"/>
+                  <circle cx="7" cy="7" r="1.5" fill="white"/>
                 </svg>
               </div>
               <span className="text-xl sm:text-2xl font-bold text-gray-900">AgroPricing</span>
-              <span className="text-xs sm:text-sm text-purple-600 font-semibold ml-2 bg-purple-50 px-2 py-1 rounded-full">PRO</span>
             </div>
             <button 
-              onClick={() => document.getElementById('waitlist-form')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' })}
               className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white px-3 py-1.5 sm:px-6 sm:py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl text-xs sm:text-base"
             >
               Lista 50% OFF
@@ -390,7 +390,7 @@ export default function Home() {
               
               <div className="bg-gray-50 rounded-lg p-3 border-2 border-dashed border-gray-300">
                 <div className="text-sm text-gray-700 leading-relaxed">
-                  "Consultoria para fazenda de soja, 500ha no MT, agricultura de precisão..."
+                  {"Consultoria para fazenda de soja, 500ha no MT, agricultura de precisão..."}
                 </div>
                 <div className="mt-3 flex flex-wrap gap-1">
                   <span className="bg-purple-100 text-purple-700 px-2 py-1 rounded text-xs">🌾 Soja</span>
@@ -589,7 +589,7 @@ export default function Home() {
                     Precificação Sem Critério
                   </h3>
                   <p className="text-sm sm:text-base text-red-700 leading-relaxed">
-                    "Cobro por hectare sem saber se é justo. Às vezes perco cliente por preço alto, outras trabalho barato demais."
+                    {"Cobro por hectare sem saber se é justo. Às vezes perco cliente por preço alto, outras trabalho barato demais."}
                   </p>
                   <p className="text-xs sm:text-sm text-red-600 mt-2 font-medium">
                     Consultor Soja/Milho - MT
@@ -611,7 +611,7 @@ export default function Home() {
                     Propostas Amadoras
                   </h3>
                   <p className="text-sm sm:text-base text-red-700 leading-relaxed">
-                    "Minhas propostas são só texto no Word. Produtores grandes nem respondem porque parece trabalho amador."
+                    {"Minhas propostas são só texto no Word. Produtores grandes nem respondem porque parece trabalho amador."}
                   </p>
                   <p className="text-xs sm:text-sm text-red-600 mt-2 font-medium">
                     Zootecnista - RS
@@ -633,7 +633,7 @@ export default function Home() {
                     Tempo Desperdiçado
                   </h3>
                   <p className="text-sm sm:text-base text-red-700 leading-relaxed">
-                    "Demoro 4-6 horas fazendo orçamento manual. Podia visitar mais clientes nesse tempo."
+                    {"Demoro 4-6 horas fazendo orçamento manual. Podia visitar mais clientes nesse tempo."}
                   </p>
                   <p className="text-xs sm:text-sm text-red-600 mt-2 font-medium">
                     Consultor Geral - GO
@@ -655,7 +655,7 @@ export default function Home() {
                     Concorrência Desleal
                   </h3>
                   <p className="text-sm sm:text-base text-red-700 leading-relaxed">
-                    "Grandes consultorias têm equipe e ferramentas. Sozinho, fico em desvantagem competitiva."
+                    {"Grandes consultorias têm equipe e ferramentas. Sozinho, fico em desvantagem competitiva."}
                   </p>
                   <p className="text-xs sm:text-sm text-red-600 mt-2 font-medium">
                     Engenheiro Agrônomo - PR
@@ -1040,12 +1040,9 @@ export default function Home() {
       <footer className="bg-white border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
           <div className="flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0">
-            {/* Copyright e Contato */}
+            {/* Contato */}
             <div className="text-center sm:text-left">
-              <p className="text-xs sm:text-sm text-gray-600">
-                © 2024 Trimobe. Todos os direitos reservados.
-              </p>
-              <p className="text-xs sm:text-sm text-gray-500 mt-1">
+              <p className="text-xs sm:text-sm text-gray-500">
                 <a href="mailto:contato@trimobe.com" className="hover:text-purple-600 transition-colors duration-300">
                   contato@trimobe.com
                 </a>
@@ -1072,18 +1069,6 @@ export default function Home() {
               {/* Redes Sociais */}
               <div className="flex items-center space-x-3">
                 <a 
-                  href="https://instagram.com/trimobe" 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-purple-600 transition-colors duration-300"
-                  aria-label="Instagram"
-                >
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.621 5.367 11.988 11.988 11.988s11.987-5.367 11.987-11.988C24.004 5.367 18.637.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.49-3.323-1.297C3.85 14.724 3.017 13.081 3.017 11.242c0-1.839.833-3.482 2.109-4.45.875-.806 2.026-1.296 3.323-1.296 1.297 0 2.448.49 3.323 1.296 1.276.968 2.109 2.611 2.109 4.45 0 1.839-.833 3.482-2.109 4.449-.875.807-2.026 1.297-3.323 1.297z"/>
-                    <path d="M12 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 15.162a3.162 3.162 0 110-6.324 3.162 3.162 0 010 6.324zM18.406 4.594a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/>
-                  </svg>
-                </a>
-                <a 
                   href="https://linkedin.com/company/trimobe" 
                   target="_blank"
                   rel="noopener noreferrer"
@@ -1092,6 +1077,17 @@ export default function Home() {
                 >
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                  </svg>
+                </a>
+                <a 
+                  href="https://instagram.com/trimobe" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-purple-600 transition-colors duration-300"
+                  aria-label="Instagram"
+                >
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
                   </svg>
                 </a>
               </div>

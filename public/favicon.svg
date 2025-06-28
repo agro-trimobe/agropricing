@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Gradiente de fundo similar ao header -->
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#9333ea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7c3aed;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Fundo com cantos arredondados -->
+  <rect width="32" height="32" rx="6" ry="6" fill="url(#bg)"/>
+  
+  <!-- Ícone de tag de preço em branco -->
+  <path d="M24.79 17.88l-9.56 9.56a2.67 2.67 0 01-3.77 0L4 20V4h16l11.46 11.46a2.67 2.67 0 010 3.77z" 
+        fill="white" stroke="none"/>
+  
+  <!-- Ponto da tag -->
+  <circle cx="9.33" cy="9.33" r="2" fill="#9333ea"/>
+</svg>

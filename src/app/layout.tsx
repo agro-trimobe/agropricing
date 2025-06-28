@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AgroPricing Pro - IA para Consultores do Agronegócio | Precificação Inteligente",
+  title: "AgroPricing",
   description: "Plataforma de IA especializada para consultores agropecuários brasileiros. Precificação inteligente, propostas profissionais em minutos. 50% OFF para os primeiros 100 usuários.",
   keywords: [
     "consultoria agropecuária",
@@ -28,6 +28,18 @@ export const metadata: Metadata = {
     "consultoria agrícola"
   ],
   authors: [{ name: "Trimobe" }],
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/favicon.svg',
+    other: [
+      {
+        rel: 'icon',
+        type: 'image/svg+xml',
+        url: '/favicon.svg',
+      },
+    ],
+  },
   creator: "Trimobe",
   publisher: "Trimobe",
   metadataBase: new URL('https://agropricing.com.br'),
@@ -46,10 +58,10 @@ export const metadata: Metadata = {
     google: 'google-site-verification-code',
   },
   openGraph: {
-    title: "AgroPricing Pro - IA para Consultores do Agronegócio",
+    title: "AgroPricing - Precificação Inteligente para Consultores do Agronegócio",
     description: "Revolucione sua consultoria agrícola com IA. Precificação inteligente e propostas profissionais em minutos. Teste gratuito de 7 dias!",
     url: "https://agropricing.com.br",
-    siteName: "AgroPricing Pro",
+    siteName: "AgroPricing",
     locale: "pt_BR",
     type: "website",
     images: [
@@ -57,13 +69,13 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "AgroPricing Pro - IA para Consultores do Agronegócio",
+        alt: "AgroPricing - Precificação Inteligente para Consultores do Agronegócio",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "AgroPricing Pro - IA para Consultores do Agronegócio",
+    title: "AgroPricing - Precificação Inteligente para Consultores do Agronegócio",
     description: "Revolucione sua consultoria agrícola com IA. Precificação inteligente e propostas profissionais em minutos.",
     images: ["/og-image.jpg"],
     creator: "@agropricing",
