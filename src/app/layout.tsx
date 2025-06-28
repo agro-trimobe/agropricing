@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import GoogleTagManager from '@/components/GoogleTagManager';
+import Script from 'next/script';
+import { GTM_CONFIG } from '@/config/gtm';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -395,11 +398,33 @@ export default function RootLayout({
         <meta name="msapplication-TileImage" content="/favicon.svg" />
         <meta name="msapplication-TileColor" content="#7c3aed" />
         <meta name="msapplication-square70x70logo" content="/favicon.svg" />
-        <meta name="msapplication-square150x150logo" content="/favicon.svg" />
-        <meta name="msapplication-wide310x150logo" content="/favicon.svg" />
-        <meta name="msapplication-square310x310logo" content="/favicon.svg" />
+        
+        {/* Google Tag Manager */}
+        <Script
+          id="gtm-script"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+              })(window,document,'script','dataLayer','${GTM_CONFIG.GTM_ID}');
+            `,
+          }}
+        />
       </head>
       <body itemScope itemType="https://schema.org/WebPage">
+        {/* Google Tag Manager (noscript) */}
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${GTM_CONFIG.GTM_ID}`}
+            height="0"
+            width="0"
+            style={{ display: 'none', visibility: 'hidden' }}
+          />
+        </noscript>
+        
         <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-50">
           <main role="main" itemScope itemType="https://schema.org/SoftwareApplication">
             <meta itemProp="name" content="AgroPricing" />
@@ -410,6 +435,9 @@ export default function RootLayout({
             <meta itemProp="price" content="124.00" />
             <meta itemProp="priceCurrency" content="BRL" />
             <meta itemProp="availability" content="https://schema.org/PreOrder" />
+            
+            {/* Google Tag Manager Component */}
+            <GoogleTagManager />
             
             {children}
           </main>
