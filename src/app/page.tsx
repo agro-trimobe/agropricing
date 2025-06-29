@@ -24,7 +24,7 @@ export default function Home() {
 
   const [formErrors, setFormErrors] = useState<{[key: string]: string}>({});
   const [fieldsTouched, setFieldsTouched] = useState<{[key: string]: boolean}>({});
-  const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
+
 
   // Funções de validação
   const validateEmail = (email: string): string => {
@@ -821,11 +821,11 @@ export default function Home() {
               <div className="text-center mb-5 sm:mb-6">
                 <h3 className="text-base sm:text-xl font-bold text-gray-900 mb-2">AgroPricing Pro</h3>
                 <div className="text-2xl sm:text-4xl font-bold text-purple-600 mb-2">
-                  R$ 47
+                  R$ 37
                   <span className="text-sm sm:text-lg text-gray-500 font-normal">/mês</span>
                 </div>
                 <div className="flex items-center justify-center mb-3 sm:mb-4">
-                  <span className="text-xs sm:text-sm text-gray-500 line-through mr-2">R$ 94</span>
+                  <span className="text-xs sm:text-sm text-gray-500 line-through mr-2">R$ 74</span>
                   <span className="bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">-50% OFF</span>
                 </div>
                 <p className="text-xs sm:text-sm text-gray-600 px-2">💡 Preço de lançamento para acesso antecipado</p>
@@ -1133,15 +1133,14 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row items-center space-y-3 sm:space-y-0 sm:space-x-6">
               {/* Links Legais */}
               <div className="flex items-center space-x-4 text-xs sm:text-sm">
-                <button 
-                  type="button"
-                  onClick={() => setShowPrivacyPolicy(true)}
+                <a 
+                  href="/politica-de-privacidade"
                   className="text-gray-500 hover:text-purple-600 transition-colors duration-300"
                 >
                   Política de Privacidade
-                </button>
+                </a>
                 <span className="text-gray-300">|</span>
-                <a href="#" className="text-gray-500 hover:text-purple-600 transition-colors duration-300">
+                <a href="/termos-de-uso" className="text-gray-500 hover:text-purple-600 transition-colors duration-300">
                   Termos de Uso
                 </a>
               </div>
@@ -1149,7 +1148,7 @@ export default function Home() {
               {/* Redes Sociais */}
               <div className="flex items-center space-x-3">
                 <a 
-                  href="https://linkedin.com/company/trimobe" 
+                  href="https://www.linkedin.com/company/trimobe-carbono/" 
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gray-400 hover:text-purple-600 transition-colors duration-300"
@@ -1160,7 +1159,7 @@ export default function Home() {
                   </svg>
                 </a>
                 <a 
-                  href="https://instagram.com/trimobe" 
+                  href="https://www.instagram.com/trimobeoficial/" 
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gray-400 hover:text-purple-600 transition-colors duration-300"
@@ -1176,95 +1175,7 @@ export default function Home() {
         </div>
       </footer>
 
-      {/* Modal de Política de Privacidade */}
-      {showPrivacyPolicy && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-2xl max-w-4xl max-h-[90vh] overflow-y-auto p-6 sm:p-8">
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-xl sm:text-2xl font-bold text-gray-900">Política de Privacidade</h2>
-              <button
-                onClick={() => setShowPrivacyPolicy(false)}
-                className="text-gray-400 hover:text-gray-600 transition-colors duration-300"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-            
-            <div className="space-y-6 text-sm sm:text-base text-gray-600">
-              <section>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">1. Coleta de Dados</h3>
-                <p className="mb-3">
-                  Coletamos apenas as informações necessárias para fornecer nossos serviços: nome, email, telefone, estado e área de atuação profissional.
-                </p>
-                <p>
-                  Todos os dados são criptografados com AES-256 e armazenados em servidores seguros no Brasil, em conformidade com a LGPD.
-                </p>
-              </section>
 
-              <section>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">2. Uso dos Dados</h3>
-                <ul className="list-disc list-inside space-y-2">
-                  <li>Comunicação sobre o lançamento do AgroPricing Pro</li>
-                  <li>Envio de conteúdo educativo relevante ao agronegócio</li>
-                  <li>Personalização da experiência na plataforma</li>
-                  <li>Análises estatísticas agregadas (sem identificação pessoal)</li>
-                </ul>
-              </section>
-
-              <section>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">3. Proteção de Dados</h3>
-                <p className="mb-3">
-                  Implementamos medidas técnicas e organizacionais apropriadas para proteger seus dados contra acesso não autorizado, alteração, divulgação ou destruição.
-                </p>
-                <p>
-                  Nossos servidores utilizam certificação SSL/TLS, backup automático e monitoramento 24/7.
-                </p>
-              </section>
-
-              <section>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">4. Seus Direitos</h3>
-                <p className="mb-3">Conforme a LGPD, você tem direito a:</p>
-                <ul className="list-disc list-inside space-y-2">
-                  <li>Acessar seus dados pessoais</li>
-                  <li>Corrigir dados incompletos ou inexatos</li>
-                  <li>Solicitar a exclusão de seus dados</li>
-                  <li>Revogar o consentimento a qualquer momento</li>
-                  <li>Portabilidade dos dados para outro fornecedor</li>
-                </ul>
-              </section>
-
-              <section>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">5. Contato</h3>
-                <p>
-                  Para exercer seus direitos ou esclarecer dúvidas sobre esta política, entre em contato conosco através do email: 
-                  <span className="font-medium text-purple-600"> privacidade@agropricingpro.com.br</span>
-                </p>
-              </section>
-
-              <section>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">6. Atualizações</h3>
-                <p>
-                  Esta política pode ser atualizada periodicamente. Notificaremos sobre mudanças significativas através do email cadastrado.
-                </p>
-                <p className="mt-2 text-sm text-gray-500">
-                  Última atualização: {new Date().toLocaleDateString('pt-BR')}
-                </p>
-              </section>
-            </div>
-
-            <div className="mt-8 flex justify-end">
-              <button
-                onClick={() => setShowPrivacyPolicy(false)}
-                className="bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 px-6 rounded-lg transition-colors duration-300"
-              >
-                Entendi
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
