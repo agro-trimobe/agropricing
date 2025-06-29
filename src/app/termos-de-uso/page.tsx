@@ -110,7 +110,7 @@ export default function TermosDeUso() {
             <section>
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">9. Limitação de Responsabilidade</h2>
               <p>
-                O AgroPricing Pro é fornecido "como está". Embora nos esforcemos para fornecer informações precisas, não garantimos a exatidão absoluta dos dados ou resultados gerados pela IA. Os usuários são responsáveis por validar e utilizar as informações de forma adequada em suas atividades profissionais.
+                O AgroPricing Pro é fornecido &ldquo;como está&rdquo;. Embora nos esforcemos para fornecer informações precisas, não garantimos a exatidão absoluta dos dados ou resultados gerados pela IA. Os usuários são responsáveis por validar e utilizar as informações de forma adequada em suas atividades profissionais.
               </p>
             </section>
 
